@@ -39,7 +39,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @ConditionalOnProperty(prefix = "guns.muti-datasource", name = "open", havingValue = "true")
-@MapperScan(basePackages = {"cn.stylefeng.guns.modular.*.mapper"}, sqlSessionTemplateRef = "gunsSqlSessionTemplate")
+@MapperScan(basePackages = {"cn.stylefeng.guns.modular.*.mapper","cn.stylefeng.guns.modular.dao"}, sqlSessionTemplateRef = "gunsSqlSessionTemplate")
 public class MultiDataSourceConfig {
 
     /**
