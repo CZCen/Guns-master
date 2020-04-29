@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.dao.WorkTicketDao">
+
+    <resultMap type="cn.stylefeng.guns.modular.entity.WorkTicket" id="WorkTicketMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="workPlace" column="work_place" jdbcType="VARCHAR"/>
+        <result property="workTime" column="work_time" jdbcType="VARCHAR"/>
+        <result property="workContent" column="work_content" jdbcType="VARCHAR"/>
+        <result property="equipment" column="equipment" jdbcType="VARCHAR"/>
+        <result property="material" column="material" jdbcType="VARCHAR"/>
+        <result property="pingJia" column="ping_jia" jdbcType="VARCHAR"/>
+        <result property="typeName" column="type_name" jdbcType="VARCHAR"/>
+        <result property="mgrId" column="mgr_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WorkTicketMap">
+        select
+          id, work_place, work_time, work_content, equipment, material, ping_jia, type_name, mgr_id
+        from lbs.work_ticket
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="WorkTicketMap">
+        select
+          id, work_place, work_time, work_content, equipment, material, ping_jia, type_name, mgr_id
+        from lbs.work_ticket
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="WorkTicketMap">
+        select
+          id, work_place, work_time, work_content, equipment, material, ping_jia, type_name, mgr_id
+        from lbs.work_ticket
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="workPlace != null and workPlace != ''">
+                and work_place = #{workPlace}
+            </if>
+            <if test="workTime != null and workTime != ''">
+                and work_time = #{workTime}
+            </if>
+            <if test="workContent != null and workContent != ''">
+                and work_content = #{workContent}
+            </if>
+            <if test="equipment != null and equipment != ''">
+                and equipment = #{equipment}
+            </if>
+            <if test="material != null and material != ''">
+                and material = #{material}
+            </if>
+            <if test="pingJia != null and pingJia != ''">
+                and ping_jia = #{pingJia}
+            </if>
+            <if test="typeName != null and typeName != ''">
+                and type_name = #{typeName}
+            </if>
+            <if test="mgrId != null">
+                and mgr_id = #{mgrId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into lbs.work_ticket(work_place, work_time, work_content, equipment, material, ping_jia, type_name, mgr_id)
+        values (#{workPlace}, #{workTime}, #{workContent}, #{equipment}, #{material}, #{pingJia}, #{typeName}, #{mgrId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update lbs.work_ticket
+        <set>
+            <if test="workPlace != null and workPlace != ''">
+                work_place = #{workPlace},
+            </if>
+            <if test="workTime != null and workTime != ''">
+                work_time = #{workTime},
+            </if>
+            <if test="workContent != null and workContent != ''">
+                work_content = #{workContent},
+            </if>
+            <if test="equipment != null and equipment != ''">
+                equipment = #{equipment},
+            </if>
+            <if test="material != null and material != ''">
+                material = #{material},
+            </if>
+            <if test="pingJia != null and pingJia != ''">
+                ping_jia = #{pingJia},
+            </if>
+            <if test="typeName != null and typeName != ''">
+                type_name = #{typeName},
+            </if>
+            <if test="mgrId != null">
+                mgr_id = #{mgrId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from lbs.work_ticket where id = #{id}
+    </delete>
+
+</mapper>

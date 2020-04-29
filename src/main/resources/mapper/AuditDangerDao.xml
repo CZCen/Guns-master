@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.dao.AuditDangerDao">
+
+    <resultMap type="cn.stylefeng.guns.modular.entity.AuditDanger" id="AuditDangerMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="dangerPoint" column="danger_point" jdbcType="VARCHAR"/>
+        <result property="auditPeople" column="audit_people" jdbcType="INTEGER"/>
+        <result property="auditStatus" column="audit_status" jdbcType="INTEGER"/>
+        <result property="auditAdd" column="audit_add" jdbcType="VARCHAR"/>
+        <result property="typeName" column="type_name" jdbcType="VARCHAR"/>
+        <result property="mgrId" column="mgr_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="AuditDangerMap">
+        select
+          id, danger_point, audit_people, audit_status, audit_add, type_name, mgr_id
+        from lbs.audit_danger
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="AuditDangerMap">
+        select
+          id, danger_point, audit_people, audit_status, audit_add, type_name, mgr_id
+        from lbs.audit_danger
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="AuditDangerMap">
+        select
+          id, danger_point, audit_people, audit_status, audit_add, type_name, mgr_id
+        from lbs.audit_danger
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="dangerPoint != null and dangerPoint != ''">
+                and danger_point = #{dangerPoint}
+            </if>
+            <if test="auditPeople != null">
+                and audit_people = #{auditPeople}
+            </if>
+            <if test="auditStatus != null">
+                and audit_status = #{auditStatus}
+            </if>
+            <if test="auditAdd != null and auditAdd != ''">
+                and audit_add = #{auditAdd}
+            </if>
+            <if test="typeName != null and typeName != ''">
+                and type_name = #{typeName}
+            </if>
+            <if test="mgrId != null">
+                and mgr_id = #{mgrId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into lbs.audit_danger(danger_point, audit_people, audit_status, audit_add, type_name, mgr_id)
+        values (#{dangerPoint}, #{auditPeople}, #{auditStatus}, #{auditAdd}, #{typeName}, #{mgrId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update lbs.audit_danger
+        <set>
+            <if test="dangerPoint != null and dangerPoint != ''">
+                danger_point = #{dangerPoint},
+            </if>
+            <if test="auditPeople != null">
+                audit_people = #{auditPeople},
+            </if>
+            <if test="auditStatus != null">
+                audit_status = #{auditStatus},
+            </if>
+            <if test="auditAdd != null and auditAdd != ''">
+                audit_add = #{auditAdd},
+            </if>
+            <if test="typeName != null and typeName != ''">
+                type_name = #{typeName},
+            </if>
+            <if test="mgrId != null">
+                mgr_id = #{mgrId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from lbs.audit_danger where id = #{id}
+    </delete>
+
+</mapper>
