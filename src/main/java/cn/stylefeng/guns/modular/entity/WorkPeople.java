@@ -1,5 +1,10 @@
 package cn.stylefeng.guns.modular.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -9,130 +14,56 @@ import java.io.Serializable;
  * @author makejava
  * @since 2020-04-29 17:05:46
  */
+
+@Data
+@TableName("work_people")
 public class WorkPeople implements Serializable {
     private static final long serialVersionUID = 761650861468374088L;
-    
+
+    @TableId(value = "ID", type = IdType.ID_WORKER)
     private Long id;
-    
+
+    @TableId(value = "NAME")
     private String name;
-    
+
+    @TableId(value = "MOBILE")
     private String mobile;
     /**
     * 描述：设备部、基建部、安监部、调度部门、供电所负责人
     */
+    @TableId(value = "DESCRIPTION")
     private String description;
-    
+
+    @TableId(value = "EGE")
     private String ege;
     /**
     * 资质
     */
+    @TableId(value = "ZI_ZHI")
     private String ziZhi;
     /**
     * 1：已审核 2：未审核
     */
+    @TableId(value = "AUDIT_STATUS")
     private Long auditStatus;
     /**
     * 审核人员id
     */
+    @TableId(value = "AUDIT_PEOPLE")
     private Long auditPeople;
-    
+
+    @TableId(value = "AUDIT_TIME")
     private Date auditTime;
     /**
     * 1:工作牌 2：操作票
     */
+    @TableId(value = "TYPE_NAME")
     private String typeName;
     /**
     * 项目id
     */
+    @TableId(value = "MGR_ID")
     private Long mgrId;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getEge() {
-        return ege;
-    }
-
-    public void setEge(String ege) {
-        this.ege = ege;
-    }
-
-    public String getZiZhi() {
-        return ziZhi;
-    }
-
-    public void setZiZhi(String ziZhi) {
-        this.ziZhi = ziZhi;
-    }
-
-    public Long getAuditStatus() {
-        return auditStatus;
-    }
-
-    public void setAuditStatus(Long auditStatus) {
-        this.auditStatus = auditStatus;
-    }
-
-    public Long getAuditPeople() {
-        return auditPeople;
-    }
-
-    public void setAuditPeople(Long auditPeople) {
-        this.auditPeople = auditPeople;
-    }
-
-    public Date getAuditTime() {
-        return auditTime;
-    }
-
-    public void setAuditTime(Date auditTime) {
-        this.auditTime = auditTime;
-    }
-
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
-
-    public Long getMgrId() {
-        return mgrId;
-    }
-
-    public void setMgrId(Long mgrId) {
-        this.mgrId = mgrId;
-    }
 
 }
