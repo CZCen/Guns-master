@@ -1,5 +1,11 @@
 package cn.stylefeng.guns.modular.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+
 import java.io.Serializable;
 
 /**
@@ -8,23 +14,54 @@ import java.io.Serializable;
  * @author makejava
  * @since 2020-04-29 17:05:46
  */
-public class WorkTicket implements Serializable {
+ 
+@TableName("work_ticket")
+public class WorkTicket extends Model<WorkTicket> implements Serializable {
+
+    public WorkTicket(Long id) {
+        this.id = id;
+    }
+
+    public WorkTicket(String workPlace, String workContent, String equipment, String material) {
+        this.workPlace = workPlace;
+        this.workContent = workContent;
+        this.equipment = equipment;
+        this.material = material;
+    }
+
+    public WorkTicket(Long id, String workPlace, String workTime, String workContent, String equipment, String material, String pingJia, String typeName, Long mgrId) {
+        this.id = id;
+        this.workPlace = workPlace;
+        this.workTime = workTime;
+        this.workContent = workContent;
+        this.equipment = equipment;
+        this.material = material;
+        this.pingJia = pingJia;
+        this.typeName = typeName;
+        this.mgrId = mgrId;
+    }
+
     private static final long serialVersionUID = -29333755643037813L;
-    
+
+    @TableId(value = "ID", type = IdType.AUTO)
     private Long id;
-    
+
+    @TableField("work_place")
     private String workPlace;
     /**
     * 工作时间
     */
+    @TableField("work_time")
     private String workTime;
     /**
     * 工作内容
     */
+    @TableField("work_content")
     private String workContent;
     /**
     * 设备
     */
+
     private String equipment;
     /**
     * 材料
@@ -33,14 +70,17 @@ public class WorkTicket implements Serializable {
     /**
     * 工作票评价
     */
+    @TableField("ping_jia")
     private String pingJia;
     /**
     * 1:工作牌 2：操作票
     */
+    @TableField("type_name")
     private String typeName;
     /**
     * 项目id
     */
+    @TableField("mgr_id")
     private Long mgrId;
 
 
