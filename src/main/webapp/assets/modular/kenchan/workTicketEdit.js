@@ -13,9 +13,6 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
     form.on('submit(btnSubmit)', function (data) {
         var ajax = new $ax(Feng.ctxPath + "/workTicket/save", function (resp) {
 
-            if (data.field.id === undefined) {
-                debugger
-            }
             if (data.field.id === '') {
                 Feng.success("添加成功！");
             }else {

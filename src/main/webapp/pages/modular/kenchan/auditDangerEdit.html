@@ -1,0 +1,54 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/kenchan/auditDangerEdit.js"]}){
+<form id="myForm" lay-filter="myForm" class="layui-form model-form">
+    <input id="id" name="id" type="hidden" class="form-control">
+
+    <!-- 
+    id
+dangerPoint
+auditPeople
+auditStatus
+auditAdd
+typeName
+mgrId 
+危险点
+审核人
+审核状态
+审核补充
+    -->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">危险点<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="dangerPoint" name="dangerPoint" placeholder="请输入危险点" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">审核人<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="auditPeople" name="auditPeople" placeholder="请输入审核人" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <!--<div class="layui-form-item">
+        <label class="layui-form-label">审核状态</label>
+        <div class="layui-input-block">
+            <input id="auditStatus" name="auditStatus" placeholder="请输入审核状态" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">审核补充</label>
+        <div class="layui-input-block">
+            <input id="auditAdd" name="auditAdd" placeholder="审核补充" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div> -->
+
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+    </div>
+
+
+</form>
+@}
