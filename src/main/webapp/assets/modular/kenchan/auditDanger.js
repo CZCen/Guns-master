@@ -1,4 +1,4 @@
-edit_flag=0;
+edit_flag = 0;
 layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     var $ = layui.$;
     var layer = layui.layer;
@@ -36,8 +36,19 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
             {field: 'id', hide: true, sort: true, title: 'id'},
             {field: 'dangerPoint', sort: true, title: '危险点'},
             {field: 'auditPeople', sort: true, title: '审核人'},
-            {field: 'auditStatus', sort: true, title: '审核状态'},
-            {field: 'auditAdd', sort: true, title: '审核补充'}, 
+            {
+                field: 'auditStatus', sort: true, title: '审核状态',
+                templet: function (d) {
+                    if (d.auditStatus === '') {
+                        return '未审核'
+                    } else if (d.auditStatus == 1) {
+                        return '已驳回'
+                    } else if (d.auditStatus == 0) {
+                        return '审核通过'
+                    }
+                }
+            },
+            {field: 'auditAdd', sort: true, title: '审核补充'},
             // {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 200}
         ]];
     };
@@ -81,7 +92,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Dict.onDeleteRole = function (data) {
         console.log(data)
         var operation = function () {
-            var ajax = new $ax(Feng.ctxPath + "/auditDanger/delete", function (data) {
+            var ajax = new $ax(Feng.ctxPath + "/auditDanger/delete", function (resp) {
                 Feng.success("删除成功!");
                 table.reload(Dict.tableId);
             }, function (data) {
@@ -102,7 +113,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
         height: "full-158",
         cellMinWidth: 100,
         cols: Dict.initColumn(),
-        done:function (res, curr, count) {
+        done: function (res, curr, count) {
             //如果是异步请求数据方式，res即为你接口返回的信息。
             //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
             console.log(res);
@@ -125,6 +136,28 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
         Dict.openAddDict('add');
     });
 
+    Dict.audit = function (data) {
+        var operation = function () {
+            var ajax = new $ax(Feng.ctxPath + "/auditDanger/save", function (resp) {
+                if (audit_flag == 0) {
+                    Feng.success("审核成功!");
+                } else {
+                    Feng.success("驳回成功!");
+                }
+                table.reload(Dict.tableId);
+            }, function (data) {
+                Feng.error("审核失败!" + data.responseJSON.message + "!");
+            });
+            data.auditStatus = audit_flag;
+            ajax.set(data);
+            ajax.start();
+        };
+        if (audit_flag == 0) {
+            Feng.confirm("是否通过", operation);
+        } else {
+            Feng.confirm("是否驳回", operation);
+        }
+    };
 
     // 工具条点击事件
     table.on('tool(' + Dict.tableId + ')', function (obj) {
@@ -135,6 +168,12 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
             Dict.openAddDict(data);
         } else if (layEvent === 'delete') {
             Dict.onDeleteRole(data);
+        } else if (layEvent === 'pass') {
+            audit_flag = 0;
+            Dict.audit(data)
+        } else if (layEvent === 'reject') {
+            audit_flag = 1;
+            Dict.audit(data)
         }
     });
 });

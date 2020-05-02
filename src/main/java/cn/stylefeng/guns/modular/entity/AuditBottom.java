@@ -28,24 +28,26 @@ public class AuditBottom extends Model<AuditBottom> implements Serializable {
 
     private Long id;
     /**
-    * 描述
-    */
+     * 描述
+     */
 
     private String des;
     /**
-    * 1：已审核 2：未审核
-    */
+     * 1：已审核 2：未审核
+     */
     @TableField("audit_status")
     private Long auditStatus;
     @TableField("audit_people")
     private Long auditPeople;
-    @TableField("audit_time")
-    private Date auditTime;
+    @TableField("audit_date")
+//    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+//    @JSONField(format = "yyyy-MM-dd")
+    private Date auditDate;
     @TableField("type_name")
     private String typeName;
     /**
-    * 项目id
-    */
+     * 项目id
+     */
     @TableField("mgr_id")
     private Long mgrId;
 
@@ -82,12 +84,12 @@ public class AuditBottom extends Model<AuditBottom> implements Serializable {
         this.auditPeople = auditPeople;
     }
 
-    public Date getAuditTime() {
-        return auditTime;
+    public Date getAuditDate() {
+        return auditDate;
     }
 
-    public void setAuditTime(Date auditTime) {
-        this.auditTime = auditTime;
+    public void setAuditDate(Date auditDate) {
+        this.auditDate = auditDate;
     }
 
     public String getTypeName() {

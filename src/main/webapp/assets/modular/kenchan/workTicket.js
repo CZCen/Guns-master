@@ -75,7 +75,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Dict.onDeleteRole = function (data) {
         console.log(data)
         var operation = function () {
-            var ajax = new $ax(Feng.ctxPath + "/workTicket/delete", function (data) {
+            var ajax = new $ax(Feng.ctxPath + "/workTicket/delete", function (resp) {
                 Feng.success("删除成功!");
                 table.reload(Dict.tableId);
             }, function (data) {

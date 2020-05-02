@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * (WorkTicket)表控制层
@@ -50,6 +52,8 @@ public class WorkTicketController extends BaseController {
     @ResponseBody
     public ResponseData add(WorkTicket workTicket) {
         try {
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            workTicket.setWorkTime(df.format(new Date()));
             workTicket.insertOrUpdate();
             return SUCCESS_TIP;
         } catch (Exception e) {

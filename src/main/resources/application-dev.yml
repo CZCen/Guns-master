@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.101.184.21:3306/lbs?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://47.101.184.21:3306/lbs?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: Root123
     filters: wall,mergeStat
@@ -12,7 +12,7 @@ guns:
   muti-datasource:
     open: false
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.101.184.21:3306/lbs?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://47.101.184.21:3306/lbs?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: Root123
     data-source-name: electric
