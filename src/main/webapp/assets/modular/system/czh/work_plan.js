@@ -38,7 +38,6 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Dict.search = function () {
         var queryData = {};
         queryData['condition'] = $("#condition").val();
-        queryData['typeName'] ='工作票';
         table.reload(Dict.tableId, {where: queryData});
     };
 
@@ -110,7 +109,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     // 渲染表格
     var tableResult = table.render({
         elem: '#' + Dict.tableId,
-        url: Feng.ctxPath + '/workPlan/list',
+        url: Feng.ctxPath + '/workPlan/list?typeName='+"工作票",
         page: true,
         height: "full-158",
         cellMinWidth: 100,

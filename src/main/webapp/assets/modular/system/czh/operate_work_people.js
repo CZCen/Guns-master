@@ -40,20 +40,20 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Dict.search = function () {
         var queryData = {};
         queryData['condition'] = $("#condition").val();
+        queryData['typeName'] = '操作票';
         table.reload(Dict.tableId, {where: queryData});
     };
 
     Dict.openAddDict = function (data) {
         admin.putTempData('formOk', false);
         var title = '人员信息录入';
-        var lianjie = '/workPeople/add';
+        var lianjie = '/workPeople/operate/add';
         if(data != undefined){
             if(data.id){
                 title = '人员信息修改';
                 lianjie = '/workPeople/add?id=' + data.id
             }
         }
-
         top.layui.admin.open({
             type: 2,
             title: title,
@@ -87,7 +87,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     // 渲染表格
     var tableResult = table.render({
         elem: '#' + Dict.tableId,
-        url: Feng.ctxPath + '/workPeople/list?typeName='+"工作票",
+        url: Feng.ctxPath + '/workPeople/list?typeName='+"操作票",
         page: true,
         height: "full-158",
         cellMinWidth: 100,
