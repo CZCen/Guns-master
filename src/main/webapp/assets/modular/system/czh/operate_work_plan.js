@@ -23,13 +23,11 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
         return [[
             {type: 'checkbox'},
             {field: 'id', hide: true, sort: true, title: 'id'},
-            {field: 'name', sort: true, title: '名称'},
-            {field: 'mobile', sort: true, title: '手机号码'},
-            {field: 'ege', sort: true, title: '年龄'},
-            {field: 'zi_zhi', sort: true, title: '资质'},
-            {field: 'audit_status_name', sort: true, title: '审核状态'},
-            {field: 'audit_people_name', sort: true, title: '审核人'},
-            {field: 'audit_time', sort: true, title: '审核时间'},
+            {field: 'workPlan', sort: true, title: '方案名称'},
+            {field: 'planDes', sort: true, title: '方案详情'},
+            {field: 'auditStatusName', sort: true, title: '审核状态'},
+            {field: 'auditPeopleName', sort: true, title: '审核人'},
+            {field: 'auditTime', sort: true, title: '审核时间'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 250}
         ]];
     };
@@ -40,17 +38,18 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Dict.search = function () {
         var queryData = {};
         queryData['condition'] = $("#condition").val();
+        queryData['typeName'] ='操作票';
         table.reload(Dict.tableId, {where: queryData});
     };
 
     Dict.openAddDict = function (data) {
         admin.putTempData('formOk', false);
-        var title = '人员信息录入';
-        var lianjie = '/workPeople/add';
+        var title = '工作方案录入';
+        var lianjie = '/workPlan/add';
         if(data != undefined){
             if(data.id){
-                title = '人员信息修改';
-                lianjie = '/workPeople/add?id=' + data.id
+                title = '工作方案修改';
+                lianjie = '/workPlan/add?id=' + data.id
             }
         }
 
@@ -64,15 +63,9 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
         });
     };
 
-
-    /**
-     * 点击删除字典
-     *
-     * @param data 点击按钮时候的行数据
-     */
     Dict.onDeleteRole = function (data) {
         var operation = function () {
-            var ajax = new $ax(Feng.ctxPath + "/workPeople/delete?id="+data.id, function (data) {
+            var ajax = new $ax(Feng.ctxPath + "/workPlan/delete?id="+data.id, function (data) {
                 Feng.success("删除成功!");
                 table.reload(Dict.tableId);
             }, function (data) {
@@ -81,48 +74,48 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
             ajax.set("dictId", data.dictId);
             ajax.start();
         };
-        Feng.confirm("是否刪除 " + data.name + "?", operation);
+        Feng.confirm("是否刪除 " + data.workPlan + "?", operation);
     };
+
+
+    Dict.shenhe = function (data) {
+        var operation = function () {
+            var ajax = new $ax(Feng.ctxPath + "/workPlan/shenhe?id="+data.id+"&auditStatus="+1, function (data) {
+                Feng.success("审核成功!");
+                table.reload(Dict.tableId);
+            }, function (data) {
+                Feng.error("审核失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("dictId", data.dictId);
+            ajax.start();
+        };
+        Feng.confirm("是否通过方案： " + data.workPlan + "?", operation);
+    };
+
+    Dict.shenheNo = function (data) {
+        var operation = function () {
+            var ajax = new $ax(Feng.ctxPath + "/workPlan/shenhe?id="+data.id+"&auditStatus="+2, function (data) {
+                Feng.success("审核成功!");
+                table.reload(Dict.tableId);
+            }, function (data) {
+                Feng.error("审核失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("dictId", data.dictId);
+            ajax.start();
+        };
+        Feng.confirm("是否驳回方案： " + data.workPlan + "?", operation);
+    };
+
 
     // 渲染表格
     var tableResult = table.render({
         elem: '#' + Dict.tableId,
-        url: Feng.ctxPath + '/workPeople/list?typeName='+"工作票",
+        url: Feng.ctxPath + '/workPlan/list',
         page: true,
         height: "full-158",
         cellMinWidth: 100,
         cols: Dict.initColumn()
     });
-
-
-
-    Dict.shenhe = function (data) {
-        var operation = function () {
-            var ajax = new $ax(Feng.ctxPath + "/workPeople/shenhe?id="+data.id+"&auditStatus="+1, function (data) {
-                Feng.success("审核成功!");
-                table.reload(Dict.tableId);
-            }, function (data) {
-                Feng.error("审核失败!" + data.responseJSON.message + "!");
-            });
-            ajax.set("dictId", data.dictId);
-            ajax.start();
-        };
-        Feng.confirm("是否通过", operation);
-    };
-
-    Dict.shenheNo = function (data) {
-        var operation = function () {
-            var ajax = new $ax(Feng.ctxPath + "/workPeople/shenhe?id="+data.id+"&auditStatus="+2, function (data) {
-                Feng.success("审核成功!");
-                table.reload(Dict.tableId);
-            }, function (data) {
-                Feng.error("审核失败!" + data.responseJSON.message + "!");
-            });
-            ajax.set("dictId", data.dictId);
-            ajax.start();
-        };
-        Feng.confirm("是否驳回", operation);
-    };
 
     // 搜索按钮点击事件
     $('#btnSearch').click(function () {

@@ -100,4 +100,16 @@ public class WorkPeopleController  extends BaseController {
 
 
 
+    //操作票页面部分
+
+    @RequestMapping("/operate")
+    public String indexOperate() {
+        return PREFIX + "operate_work_people.html";
+    }
+
+    @RequestMapping("/operate/add")
+    public String addOperate() {
+        return PREFIX + "operate_work_people_edit.html";
+    }
+
 }
