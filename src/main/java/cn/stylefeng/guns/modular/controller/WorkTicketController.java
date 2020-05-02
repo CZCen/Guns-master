@@ -62,7 +62,7 @@ public class WorkTicketController extends BaseController {
     @ResponseBody
     public ResponseData delete(@RequestParam Long id) {
         try {
-            new WorkTicket(id).deleteById();
+            WorkTicket.builder().id(id).build().deleteById();
             return SUCCESS_TIP;
         } catch (Exception e) {
             log.error(null, e);
@@ -73,12 +73,12 @@ public class WorkTicketController extends BaseController {
     @RequestMapping("/list")
     @ResponseBody
     public LayuiPageInfo list(long page, long limit, String condition) {
-        LayuiPageInfo pageInfo = null;
         try {
             IPage<WorkTicket> workTicketIPage;
             if (StringUtils.isEmpty(condition)) {
                 workTicketIPage = workTicketDao
-                        .selectPage(new Page<>(page, limit), null);
+                        .selectPage(new Page<>(page, limit)
+                                , new QueryWrapper<>(WorkTicket.builder().build()));
             } else {
                 workTicketIPage = workTicketDao
                         .selectPage(new Page<>(page, limit),
@@ -99,7 +99,7 @@ public class WorkTicketController extends BaseController {
     public Object getUserInfo(@RequestParam Long id) {
         WorkTicket workTicket;
         try {
-            workTicket = new WorkTicket(id).selectById();
+            workTicket = WorkTicket.builder().id(id).build().selectById();
         } catch (Exception e) {
             log.error(null, e);
             return ERROR_TIP;

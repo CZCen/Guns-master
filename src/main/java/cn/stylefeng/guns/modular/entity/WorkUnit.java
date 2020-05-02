@@ -1,7 +1,16 @@
 package cn.stylefeng.guns.modular.entity;
 
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (WorkUnit)实体类
@@ -9,21 +18,35 @@ import java.io.Serializable;
  * @author makejava
  * @since 2020-04-29 17:05:46
  */
-public class WorkUnit implements Serializable {
+@TableName("work_unit")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class WorkUnit extends Model<WorkUnit> implements Serializable {
     private static final long serialVersionUID = 812559341653378614L;
-    
+
+    public WorkUnit(Long id) {
+        this.id = id;
+    }
+
+    @TableId(type = IdType.AUTO)
     private Long id;
-    
+
+    @TableField("unit_name")
     private String unitName;
     /**
     * 资质
     */
+    @TableField("zi_zhi")
     private String ziZhi;
-    
+
+
     private String mobile;
-    
+
+    @TableField("create_time")
     private Date createTime;
-    
+
+    @TableField("create_user")
     private Long createUser;
     /**
     * 负责人
@@ -32,11 +55,16 @@ public class WorkUnit implements Serializable {
     /**
     * 1:工作牌 2：操作票
     */
+    @TableField("type_name")
     private String typeName;
     /**
     * 项目id
     */
+    @TableField("mgr_id")
     private Long mgrId;
+
+    @TableField("unit_type")
+    private String unitType;
 
 
     public Long getId() {
@@ -111,4 +139,11 @@ public class WorkUnit implements Serializable {
         this.mgrId = mgrId;
     }
 
+    public String getUnitType() {
+        return unitType;
+    }
+
+    public void setUnitType(String unitType) {
+        this.unitType = unitType;
+    }
 }

@@ -11,7 +11,7 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
 
     // 表单提交事件
     form.on('submit(btnSubmit)', function (data) {
-        var ajax = new $ax(Feng.ctxPath + "/workTicket/save", function (resp) {
+        var ajax = new $ax(Feng.ctxPath + "/workUnit/save", function (resp) {
 
             if (data.field.id === '') {
                 Feng.success("添加成功！");
@@ -34,7 +34,7 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
 
     var id = Feng.getUrlParam("id");
     if(id){
-        var ajax_ = new $ax(Feng.ctxPath + "/workTicket/getOne?id=" + id);
+        var ajax_ = new $ax(Feng.ctxPath + "/workUnit/getOne?id=" + id);
         var result = ajax_.start();
         form.val('myForm', result.data);
         layui.form.render("select");
