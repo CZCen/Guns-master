@@ -5,8 +5,11 @@
     <resultMap type="cn.stylefeng.guns.modular.entity.WorkPlan" id="WorkPlanMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="workPlan" column="work_plan" jdbcType="VARCHAR"/>
+        <result property="planDes" column="plan_des" jdbcType="VARCHAR"/>
         <result property="auditStatus" column="audit_status" jdbcType="INTEGER"/>
         <result property="auditPeople" column="audit_people" jdbcType="INTEGER"/>
+        <result property="auditStatusName" column="audit_status_name" jdbcType="VARCHAR"/>
+        <result property="auditPeopleName" column="audit_people_name" jdbcType="VARCHAR"/>
         <result property="auditTime" column="audit_time" jdbcType="TIMESTAMP"/>
         <result property="typeName" column="type_name" jdbcType="VARCHAR"/>
         <result property="mgrId" column="mgr_id" jdbcType="INTEGER"/>
@@ -15,21 +18,39 @@
     <!--查询单个-->
     <select id="queryById" resultMap="WorkPlanMap">
         select
-          id, work_plan, audit_status, audit_people, audit_time, type_name, mgr_id
+          id, work_plan,plan_des,audit_status, audit_people, audit_time, type_name, mgr_id
         from lbs.work_plan
         where id = #{id}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="WorkPlanMap">
-        select
-          id, work_plan, audit_status, audit_people, audit_time, type_name, mgr_id
-        from lbs.work_plan where 1=1
+        SELECT
+        a.id,
+        a.work_plan,
+        a.plan_des,
+        a.audit_status,
+        a.audit_people,
+        a.audit_time,
+        a.type_name,
+        a.mgr_id,
+        b. NAME AS audit_people_name,
+        (
+        CASE
+        WHEN a.audit_status = 1 THEN '通过审核'
+        WHEN a.audit_status = 2 THEN '未通过审核'
+        ELSE '未审核' END
+        ) AS audit_status_name
+        FROM
+        work_plan a
+        LEFT JOIN sys_user b ON a.audit_people = b.user_id
+        WHERE
+        1 = 1
         <if test="condition != null and condition != ''">
-            AND work_plan like CONCAT('%',#{condition},'%')
+            AND a.work_plan like CONCAT('%',#{condition},'%')
         </if>
         <if test="typeName != null and typeName != ''">
-            AND type_name = #{typeName}
+            AND a.type_name = #{typeName}
         </if>
         <if test="offset !=null ">
             limit #{offset}, #{limit}
@@ -43,7 +64,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="WorkPlanMap">
         select
-          id, work_plan, audit_status, audit_people, audit_time, type_name, mgr_id
+          id, work_plan,plan_des, audit_status, audit_people, audit_time, type_name, mgr_id
         from lbs.work_plan
         <where>
             <if test="id != null">
@@ -72,8 +93,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into lbs.work_plan(work_plan, audit_status, audit_people, audit_time, type_name, mgr_id)
-        values (#{workPlan}, #{auditStatus}, #{auditPeople}, #{auditTime}, #{typeName}, #{mgrId})
+        insert into lbs.work_plan(work_plan,plan_des, audit_status, audit_people, audit_time, type_name, mgr_id)
+        values (#{workPlan},#{planDes}, #{auditStatus}, #{auditPeople}, #{auditTime}, #{typeName}, #{mgrId})
     </insert>
 
     <!--通过主键修改数据-->
@@ -82,6 +103,9 @@
         <set>
             <if test="workPlan != null and workPlan != ''">
                 work_plan = #{workPlan},
+            </if>
+            <if test="planDes != null and planDes != ''">
+                plan_des = #{planDes},
             </if>
             <if test="auditStatus != null">
                 audit_status = #{auditStatus},

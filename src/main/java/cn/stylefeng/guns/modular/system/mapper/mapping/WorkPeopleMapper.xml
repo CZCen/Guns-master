@@ -5,14 +5,22 @@
 
     <select id="selectWorkPeople" resultType="map">
         select
-        id, name, mobile, description, ege, zi_zhi, audit_status, audit_people, audit_time, type_name, mgr_id
-        from work_people
+        a.id, a.name, a.mobile, a.description, a.ege, a.zi_zhi, a.audit_status,
+        a.audit_people, a.audit_time, a.type_name, a.mgr_id,b.name as audit_people_name,
+        (
+        CASE
+        WHEN a.audit_status = 1 THEN '通过审核'
+        WHEN a.audit_status = 2 THEN '未通过审核'
+        ELSE '未审核' END
+        ) AS audit_status_name
+        from work_people a
+        LEFT JOIN sys_user b ON a.audit_people = b.user_id
         where 1=1
         <if test="condition != null and condition != ''">
-            AND NAME like CONCAT('%',#{condition},'%')
+            AND a.NAME like CONCAT('%',#{condition},'%')
         </if>
         <if test="typeName != null and typeName != ''">
-            AND type_name = #{typeName}
+            AND a.type_name = #{typeName}
         </if>
         order by id DESC
     </select>

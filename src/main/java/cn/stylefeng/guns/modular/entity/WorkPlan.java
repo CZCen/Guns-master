@@ -15,6 +15,9 @@ public class WorkPlan implements Serializable {
     private Long id;
     
     private String workPlan;
+
+    private String planDes;
+
     /**
     * 1：已审核 2：未审核
     */
@@ -32,6 +35,33 @@ public class WorkPlan implements Serializable {
     */
     private Long mgrId;
 
+    private String auditStatusName;
+
+    private String auditPeopleName;
+
+    public String getAuditPeopleName() {
+        return auditPeopleName;
+    }
+
+    public void setAuditPeopleName(String auditPeopleName) {
+        this.auditPeopleName = auditPeopleName;
+    }
+
+    public String getAuditStatusName() {
+        return auditStatusName;
+    }
+
+    public void setAuditStatusName(String auditStatusName) {
+        this.auditStatusName = auditStatusName;
+    }
+
+    public String getPlanDes() {
+        return planDes;
+    }
+
+    public void setPlanDes(String planDes) {
+        this.planDes = planDes;
+    }
 
     public Long getId() {
         return id;

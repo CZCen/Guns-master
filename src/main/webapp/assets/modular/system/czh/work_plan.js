@@ -23,11 +23,12 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
         return [[
             {type: 'checkbox'},
             {field: 'id', hide: true, sort: true, title: 'id'},
-            {field: 'workPlan', sort: true, title: '工作方案'},
-            {field: 'auditStatus', sort: true, title: '审核状态'},
-            {field: 'auditPeople', sort: true, title: '审核人'},
+            {field: 'workPlan', sort: true, title: '方案名称'},
+            {field: 'planDes', sort: true, title: '方案详情'},
+            {field: 'auditStatusName', sort: true, title: '审核状态'},
+            {field: 'auditPeopleName', sort: true, title: '审核人'},
             {field: 'auditTime', sort: true, title: '审核时间'},
-            {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 200}
+            {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 250}
         ]];
     };
 
@@ -62,12 +63,6 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
         });
     };
 
-
-    /**
-     * 点击删除字典
-     *
-     * @param data 点击按钮时候的行数据
-     */
     Dict.onDeleteRole = function (data) {
         var operation = function () {
             var ajax = new $ax(Feng.ctxPath + "/workPlan/delete?id="+data.id, function (data) {
@@ -81,6 +76,36 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
         };
         Feng.confirm("是否刪除 " + data.workPlan + "?", operation);
     };
+
+
+    Dict.shenhe = function (data) {
+        var operation = function () {
+            var ajax = new $ax(Feng.ctxPath + "/workPlan/shenhe?id="+data.id+"&auditStatus="+1, function (data) {
+                Feng.success("审核成功!");
+                table.reload(Dict.tableId);
+            }, function (data) {
+                Feng.error("审核失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("dictId", data.dictId);
+            ajax.start();
+        };
+        Feng.confirm("是否通过方案： " + data.workPlan + "?", operation);
+    };
+
+    Dict.shenheNo = function (data) {
+        var operation = function () {
+            var ajax = new $ax(Feng.ctxPath + "/workPlan/shenhe?id="+data.id+"&auditStatus="+2, function (data) {
+                Feng.success("审核成功!");
+                table.reload(Dict.tableId);
+            }, function (data) {
+                Feng.error("审核失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("dictId", data.dictId);
+            ajax.start();
+        };
+        Feng.confirm("是否驳回方案： " + data.workPlan + "?", operation);
+    };
+
 
     // 渲染表格
     var tableResult = table.render({
@@ -112,6 +137,10 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
             Dict.openAddDict(data);
         } else if (layEvent === 'delete') {
             Dict.onDeleteRole(data);
+        }else if(layEvent == 'shenhe'){
+            Dict.shenhe(data)
+        }else if(layEvent == 'shenheNo'){
+            Dict.shenheNo(data)
         }
     });
 });

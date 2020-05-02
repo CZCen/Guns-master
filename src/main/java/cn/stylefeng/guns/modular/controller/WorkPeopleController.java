@@ -2,6 +2,8 @@ package cn.stylefeng.guns.modular.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
+import cn.stylefeng.guns.core.shiro.ShiroKit;
+import cn.stylefeng.guns.core.shiro.ShiroUser;
 import cn.stylefeng.guns.modular.entity.WorkPeople;
 import cn.stylefeng.guns.modular.service.impl.WorkPeopleService;
 import cn.stylefeng.guns.modular.service.wrap.WorkPeopleWrapper;
@@ -13,6 +15,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -56,6 +59,16 @@ public class WorkPeopleController  extends BaseController {
         return SUCCESS_TIP;
     }
 
+    @RequestMapping("/shenhe")
+    @ResponseBody
+    public ResponseData shenhe(WorkPeople workPeople) {
+        ShiroUser currentUser = ShiroKit.getUser();
+        workPeople.setAuditTime(new Date());
+        workPeople.setAuditPeople(currentUser.getId());
+        this.workPeopleService.updateById(workPeople);
+        return SUCCESS_TIP;
+    }
+
     @RequestMapping("/delete")
     @ResponseBody
     public ResponseData delete(@RequestParam Long id) {
@@ -65,11 +78,11 @@ public class WorkPeopleController  extends BaseController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public Object list(String condition) {
+    public Object list(String condition,String typeName) {
         if(condition==null){
             condition = "";
         }
-        Page<Map<String, Object>> list = this.workPeopleService.selectWorkPeople(condition);
+        Page<Map<String, Object>> list = this.workPeopleService.selectWorkPeople(condition,typeName);
         Page<Map<String, Object>> warpper = new WorkPeopleWrapper(list).wrap();
         return LayuiPageFactory.createPageInfo(warpper);
     }
@@ -84,6 +97,7 @@ public class WorkPeopleController  extends BaseController {
         Map<String, Object> hashMap = BeanUtil.beanToMap(workPeople);
         return ResponseData.success(hashMap);
     }
+
 
 
 }

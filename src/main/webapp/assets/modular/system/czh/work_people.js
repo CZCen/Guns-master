@@ -27,10 +27,10 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
             {field: 'mobile', sort: true, title: '手机号码'},
             {field: 'ege', sort: true, title: '年龄'},
             {field: 'zi_zhi', sort: true, title: '资质'},
-            {field: 'audit_status', sort: true, title: '审核状态'},
-            {field: 'audit_people', sort: true, title: '审核人'},
+            {field: 'audit_status_name', sort: true, title: '审核状态'},
+            {field: 'audit_people_name', sort: true, title: '审核人'},
             {field: 'audit_time', sort: true, title: '审核时间'},
-            {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 200}
+            {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 250}
         ]];
     };
 
@@ -95,6 +95,36 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
         cols: Dict.initColumn()
     });
 
+
+
+    Dict.shenhe = function (data) {
+        var operation = function () {
+            var ajax = new $ax(Feng.ctxPath + "/workPeople/shenhe?id="+data.id+"&auditStatus="+1, function (data) {
+                Feng.success("审核成功!");
+                table.reload(Dict.tableId);
+            }, function (data) {
+                Feng.error("审核失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("dictId", data.dictId);
+            ajax.start();
+        };
+        Feng.confirm("是否通过", operation);
+    };
+
+    Dict.shenheNo = function (data) {
+        var operation = function () {
+            var ajax = new $ax(Feng.ctxPath + "/workPeople/shenhe?id="+data.id+"&auditStatus="+2, function (data) {
+                Feng.success("审核成功!");
+                table.reload(Dict.tableId);
+            }, function (data) {
+                Feng.error("审核失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("dictId", data.dictId);
+            ajax.start();
+        };
+        Feng.confirm("是否驳回", operation);
+    };
+
     // 搜索按钮点击事件
     $('#btnSearch').click(function () {
         Dict.search();
@@ -115,6 +145,10 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
             Dict.openAddDict(data);
         } else if (layEvent === 'delete') {
             Dict.onDeleteRole(data);
+        }else if(layEvent == 'shenhe'){
+            Dict.shenhe(data)
+        }else if(layEvent == 'shenheNo'){
+            Dict.shenheNo(data)
         }
     });
 });

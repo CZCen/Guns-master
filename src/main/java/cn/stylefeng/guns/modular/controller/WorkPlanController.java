@@ -1,7 +1,10 @@
 package cn.stylefeng.guns.modular.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
+import cn.stylefeng.guns.core.shiro.ShiroKit;
+import cn.stylefeng.guns.core.shiro.ShiroUser;
 import cn.stylefeng.guns.modular.entity.WorkPlan;
 import cn.stylefeng.guns.modular.service.WorkPlanService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +62,17 @@ public class WorkPlanController extends BaseController {
         }else{
             this.workPlanService.update(workPlan);
         }
+        return SUCCESS_TIP;
+    }
+
+
+    @RequestMapping("/shenhe")
+    @ResponseBody
+    public ResponseData shenhe(WorkPlan workPlan) {
+        ShiroUser currentUser = ShiroKit.getUser();
+        workPlan.setAuditTime(new Date());
+        workPlan.setAuditPeople(currentUser.getId());
+        this.workPlanService.update(workPlan);
         return SUCCESS_TIP;
     }
 

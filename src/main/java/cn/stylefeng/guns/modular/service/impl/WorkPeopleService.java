@@ -25,9 +25,9 @@ public class WorkPeopleService extends ServiceImpl<WorkPeopleMapper, WorkPeople>
     @Resource
     private WorkPeopleMapper workPeopleMapper;
 
-    public Page<Map<String, Object>> selectWorkPeople(String conditiion) {
+    public Page<Map<String, Object>> selectWorkPeople(String conditiion,String typeName) {
         Page page = LayuiPageFactory.defaultPage();
-        return this.baseMapper.selectWorkPeople(page,conditiion);
+        return this.baseMapper.selectWorkPeople(page,conditiion,typeName);
     }
 
     @Transactional
