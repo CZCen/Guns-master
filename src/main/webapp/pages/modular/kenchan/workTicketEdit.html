@@ -1,0 +1,55 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/kenchan/workTicketEdit.js"]}){
+<form id="myForm" lay-filter="myForm" class="layui-form model-form">
+    <input id="id" name="id" type="hidden" class="form-control">
+
+    <!--
+     {field: 'workPlace', sort: true, title: '施工地点'},
+            {field: 'workTime', sort: true, title: '时间'},
+            {field: 'workContent', sort: true, title: '工作内容'},
+            {field: 'equipment', sort: true, title: '设备'},
+            {field: 'material', sort: true, title: '材料配备'},
+    -->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">施工地点<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="workPlace" name="workPlace" placeholder="请输入施工地点" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">时间<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="workTime" name="workTime" placeholder="请输入时间" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">工作内容</label>
+        <div class="layui-input-block">
+            <input id="workContent" name="workContent" placeholder="请输入工作内容" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">设备</label>
+        <div class="layui-input-block">
+            <input id="equipment" name="equipment" placeholder="请输入设备" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">材料配备</label>
+        <div class="layui-input-block">
+            <input name="material" placeholder="请输入材料配备" type="text" class="layui-input"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+    </div>
+
+
+</form>
+@}

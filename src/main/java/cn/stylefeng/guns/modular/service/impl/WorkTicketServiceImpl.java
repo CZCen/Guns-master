@@ -1,7 +1,7 @@
 package cn.stylefeng.guns.modular.service.impl;
 
-import cn.stylefeng.guns.modular.entity.WorkTicket;
 import cn.stylefeng.guns.modular.dao.WorkTicketDao;
+import cn.stylefeng.guns.modular.entity.WorkTicket;
 import cn.stylefeng.guns.modular.service.WorkTicketService;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * @since 2020-04-29 17:05:46
  */
 @Service("workTicketService")
-public class WorkTicketServiceImpl implements WorkTicketService {
+public class WorkTicketServiceImpl  implements WorkTicketService  {
     @Resource
     private WorkTicketDao workTicketDao;
 

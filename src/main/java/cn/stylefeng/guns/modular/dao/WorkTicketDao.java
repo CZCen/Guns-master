@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.dao;
 
 import cn.stylefeng.guns.modular.entity.WorkTicket;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-04-29 17:05:46
  */
-public interface WorkTicketDao {
+public interface WorkTicketDao extends BaseMapper<WorkTicket> {
 
     /**
      * 通过ID查询单条数据
