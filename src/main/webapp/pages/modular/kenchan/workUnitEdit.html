@@ -1,0 +1,63 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/kenchan/workUnitEdit.js"]}){
+<form id="myForm" lay-filter="myForm" class="layui-form model-form">
+    <input id="id" name="id" type="hidden" class="form-control">
+
+    <!--
+ unit_name
+zi_zhi
+mobile
+create_time
+create_user
+principal
+type_name
+mgr_id
+用于施工单位、维护单位名称和资质录入
+单位名称 资质 联系电话 负责人 单位类型
+    -->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">单位名称<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="unitName" name="unitName" placeholder="请输入单位名称" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">资质<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="ziZhi" name="ziZhi" placeholder="请输入资质" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系电话</label>
+        <div class="layui-input-block">
+            <input id="mobile" name="mobile" placeholder="请输入联系电话" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">负责人</label>
+        <div class="layui-input-block">
+            <input id="principal" name="principal" placeholder="负责人" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label  class="layui-form-label">单位类型</label>
+        <div class="layui-input-block">
+            <select name="unitType" id="unitType">
+                <option value="施工单位">施工单位</option>
+                <option value="维护单位">维护单位</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+    </div>
+
+
+</form>
+@}
