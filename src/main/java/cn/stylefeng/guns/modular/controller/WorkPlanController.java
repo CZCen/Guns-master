@@ -106,4 +106,18 @@ public class WorkPlanController extends BaseController {
 
 
 
+    //操作票页面部分
+
+    @RequestMapping("/operate")
+    public String indexOperate() {
+        return PREFIX + "operate_work_plan.html";
+    }
+
+    @RequestMapping("/operate/add")
+    public String addOperate() {
+        return PREFIX + "operate_work_plan_edit.html";
+    }
+
+
+
 }

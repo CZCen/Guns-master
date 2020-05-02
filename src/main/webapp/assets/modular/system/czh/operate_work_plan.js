@@ -38,14 +38,13 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Dict.search = function () {
         var queryData = {};
         queryData['condition'] = $("#condition").val();
-        queryData['typeName'] ='操作票';
         table.reload(Dict.tableId, {where: queryData});
     };
 
     Dict.openAddDict = function (data) {
         admin.putTempData('formOk', false);
         var title = '工作方案录入';
-        var lianjie = '/workPlan/add';
+        var lianjie = '/workPlan/operate/add';
         if(data != undefined){
             if(data.id){
                 title = '工作方案修改';
@@ -110,7 +109,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     // 渲染表格
     var tableResult = table.render({
         elem: '#' + Dict.tableId,
-        url: Feng.ctxPath + '/workPlan/list',
+        url: Feng.ctxPath + '/workPlan/list?typeName='+'操作票',
         page: true,
         height: "full-158",
         cellMinWidth: 100,
