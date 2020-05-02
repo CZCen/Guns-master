@@ -1,0 +1,54 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/kenchan/auditBottomEdit.js"]}){
+<form id="myForm" lay-filter="myForm" class="layui-form model-form">
+    <input id="id" name="id" type="hidden" class="form-control">
+
+    <!-- 
+    id
+    des
+    auditStatus
+    auditPeople
+    auditTime
+    typeName
+    mgrId
+    描述
+    审核状态
+    审核人
+    审核时间
+    -->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">描述<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="des" name="des" placeholder="请输入描述" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+<!--    <div class="layui-form-item">-->
+<!--        <label class="layui-form-label">审核状态<span style="color: red;">*</span></label>-->
+<!--        <div class="layui-input-block">-->
+<!--            <input id="auditStatus" name="auditStatus" placeholder="请输入审核状态" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">审核人</label>
+        <div class="layui-input-block">
+            <input id="auditPeople" name="auditPeople" placeholder="请输入审核人" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+<!--    <div class="layui-form-item">-->
+<!--        <label class="layui-form-label">审核时间</label>-->
+<!--        <div class="layui-input-block">-->
+<!--            <input id="auditTime" name="auditTime" placeholder="审核时间" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+    </div>
+
+
+</form>
+@}

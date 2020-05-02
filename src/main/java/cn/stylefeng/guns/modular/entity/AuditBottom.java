@@ -1,7 +1,16 @@
 package cn.stylefeng.guns.modular.entity;
 
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (AuditBottom)实体类
@@ -9,27 +18,35 @@ import java.io.Serializable;
  * @author makejava
  * @since 2020-04-29 17:05:45
  */
-public class AuditBottom implements Serializable {
+@TableName("audit_bottom")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class AuditBottom extends Model<AuditBottom> implements Serializable {
     private static final long serialVersionUID = 358734224700323921L;
-    
+    @TableId(value = "ID", type = IdType.AUTO)
+
     private Long id;
     /**
     * 描述
     */
+
     private String des;
     /**
     * 1：已审核 2：未审核
     */
+    @TableField("audit_status")
     private Long auditStatus;
-    
+    @TableField("audit_people")
     private Long auditPeople;
-    
+    @TableField("audit_time")
     private Date auditTime;
-    
+    @TableField("type_name")
     private String typeName;
     /**
     * 项目id
     */
+    @TableField("mgr_id")
     private Long mgrId;
 
 

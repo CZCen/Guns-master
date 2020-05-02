@@ -17,28 +17,30 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
         }
     };
 
-    /*id
-    dangerPoint
-    auditPeople
+    /* 
+    *id
+    des
     auditStatus
-    auditAdd
+    auditPeople
+    auditTime
     typeName
     mgrId
-    危险点
-    审核人
+    描述
     审核状态
-    审核补充*/
+    审核人
+    审核时间
+    * */
 
     Dict.initColumn = function () {
         return [[
 
             {type: 'checkbox'},
             {field: 'id', hide: true, sort: true, title: 'id'},
-            {field: 'dangerPoint', sort: true, title: '危险点'},
-            {field: 'auditPeople', sort: true, title: '审核人'},
+            {field: 'des', sort: true, title: '描述'},
             {field: 'auditStatus', sort: true, title: '审核状态'},
-            {field: 'auditAdd', sort: true, title: '审核补充'}, 
-            // {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 200}
+            {field: 'auditPeople', sort: true, title: '审核人'},
+            {field: 'auditTime', sort: true, title: '审核时间'}, 
+            {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 200}
         ]];
     };
 
@@ -54,11 +56,11 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Dict.openAddDict = function (data) {
         admin.putTempData('formOk', false);
         var title = '危险点信息录入';
-        var lianjie = '/auditDanger/add';
+        var lianjie = '/auditBottom/add';
         if (data !== undefined) {
             if (data.id) {
                 title = '危险点信息修改';
-                lianjie = '/auditDanger/add?id=' + data.id
+                lianjie = '/auditBottom/add?id=' + data.id
             }
         }
 
@@ -81,7 +83,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Dict.onDeleteRole = function (data) {
         console.log(data)
         var operation = function () {
-            var ajax = new $ax(Feng.ctxPath + "/auditDanger/delete", function (data) {
+            var ajax = new $ax(Feng.ctxPath + "/auditBottom/delete", function (data) {
                 Feng.success("删除成功!");
                 table.reload(Dict.tableId);
             }, function (data) {
@@ -97,7 +99,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     // 渲染表格
     var tableResult = table.render({
         elem: '#' + Dict.tableId,
-        url: Feng.ctxPath + '/auditDanger/list',
+        url: Feng.ctxPath + '/auditBottom/list',
         page: true,
         height: "full-158",
         cellMinWidth: 100,
