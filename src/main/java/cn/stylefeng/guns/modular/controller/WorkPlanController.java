@@ -2,6 +2,7 @@ package cn.stylefeng.guns.modular.controller;
 
 import cn.stylefeng.guns.modular.entity.WorkPlan;
 import cn.stylefeng.guns.modular.service.WorkPlanService;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -12,7 +13,7 @@ import javax.annotation.Resource;
  * @author makejava
  * @since 2020-04-29 17:05:46
  */
-@RestController
+@Controller
 @RequestMapping("workPlan")
 public class WorkPlanController {
     /**
