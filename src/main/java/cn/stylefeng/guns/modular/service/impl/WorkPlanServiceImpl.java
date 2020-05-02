@@ -38,9 +38,15 @@ public class WorkPlanServiceImpl implements WorkPlanService {
      * @return 对象列表
      */
     @Override
-    public List<WorkPlan> queryAllByLimit(int offset, int limit) {
-        return this.workPlanDao.queryAllByLimit(offset, limit);
+    public List<WorkPlan> queryAllByLimit(int offset, int limit,String condition) {
+        return this.workPlanDao.queryAllByLimit(offset, limit,condition);
     }
+
+    @Override
+    public int queryTotal() {
+        return this.workPlanDao.queryTotal();
+    }
+
 
     /**
      * 新增数据

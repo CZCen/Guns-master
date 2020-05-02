@@ -26,7 +26,9 @@ public interface WorkPlanService {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<WorkPlan> queryAllByLimit(int offset, int limit);
+    List<WorkPlan> queryAllByLimit(int offset, int limit,String condition);
+
+    int queryTotal();
 
     /**
      * 新增数据
