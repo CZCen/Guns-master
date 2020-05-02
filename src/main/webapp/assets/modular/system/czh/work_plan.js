@@ -37,6 +37,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Dict.search = function () {
         var queryData = {};
         queryData['condition'] = $("#condition").val();
+        queryData['typeName'] ='工作票';
         table.reload(Dict.tableId, {where: queryData});
     };
 

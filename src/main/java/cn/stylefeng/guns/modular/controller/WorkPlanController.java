@@ -70,8 +70,8 @@ public class WorkPlanController extends BaseController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public Object list(String condition,int page, int limit) {
-        List<WorkPlan> list = this.workPlanService.queryAllByLimit((page-1)*limit,limit,condition);
+    public Object list(String condition,int page, int limit,String typeName) {
+        List<WorkPlan> list = this.workPlanService.queryAllByLimit((page-1)*limit,limit,condition,typeName);
         Page<WorkPlan> rsult = new Page<>((page-1)*limit,limit);
         rsult.setRecords(list);
         rsult.setTotal(this.workPlanService.queryTotal());

@@ -27,7 +27,8 @@ public interface WorkPlanDao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<WorkPlan> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit,@Param("condition") String condition);
+    List<WorkPlan> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit,
+                                   @Param("condition") String condition, @Param("typeName")  String typeName);
 
     int queryTotal();
 

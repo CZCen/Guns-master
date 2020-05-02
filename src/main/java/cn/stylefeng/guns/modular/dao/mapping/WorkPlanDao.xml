@@ -28,6 +28,9 @@
         <if test="condition != null and condition != ''">
             AND work_plan like CONCAT('%',#{condition},'%')
         </if>
+        <if test="typeName != null and typeName != ''">
+            AND type_name = #{typeName}
+        </if>
         <if test="offset !=null ">
             limit #{offset}, #{limit}
         </if>

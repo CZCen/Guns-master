@@ -40,6 +40,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Dict.search = function () {
         var queryData = {};
         queryData['condition'] = $("#condition").val();
+        queryData['typeName'] = '工作票';
         table.reload(Dict.tableId, {where: queryData});
     };
 
@@ -72,7 +73,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
      */
     Dict.onDeleteRole = function (data) {
         var operation = function () {
-            var ajax = new $ax(Feng.ctxPath + "/workPeople/delete", function (data) {
+            var ajax = new $ax(Feng.ctxPath + "/workPeople/delete?id="+data.id, function (data) {
                 Feng.success("删除成功!");
                 table.reload(Dict.tableId);
             }, function (data) {

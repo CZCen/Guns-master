@@ -11,6 +11,9 @@
         <if test="condition != null and condition != ''">
             AND NAME like CONCAT('%',#{condition},'%')
         </if>
+        <if test="typeName != null and typeName != ''">
+            AND type_name = #{typeName}
+        </if>
         order by id DESC
     </select>
 
