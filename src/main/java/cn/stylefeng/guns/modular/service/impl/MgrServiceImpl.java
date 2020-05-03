@@ -38,8 +38,13 @@ public class MgrServiceImpl implements MgrService {
      * @return 对象列表
      */
     @Override
-    public List<Mgr> queryAllByLimit(int offset, int limit) {
-        return this.mgrDao.queryAllByLimit(offset, limit);
+    public List<Mgr> queryAllByLimit(int offset, int limit,String condition,String typeName) {
+        return this.mgrDao.queryAllByLimit(offset, limit,condition,typeName);
+    }
+
+    @Override
+    public int queryTotal() {
+        return this.mgrDao.queryTotal();
     }
 
     /**

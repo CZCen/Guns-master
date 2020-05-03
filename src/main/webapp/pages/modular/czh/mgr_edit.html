@@ -1,0 +1,68 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/system/czh/mgr_edit.js"]}){
+<form id="myForm" lay-filter="myForm" class="layui-form model-form">
+    <input id="id" name="id" type="hidden" class="form-control">
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">项目编号<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="mgrNo" name="mgrNo" placeholder="请输入项目编号" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">项目名称<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="mgrName" name="mgrName" placeholder="请输入项目名称" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">人才风险<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="rencaiFengxian" name="rencaiFengxian" placeholder="请输入人才风险" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">行为风险<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="xingweiFengxian" name="xingweiFengxian" placeholder="请输入行为风险" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">技术风险<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="jishuFengxian" name="jishuFengxian" placeholder="请输入技术风险" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">管理风险<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="guanliFengxian" name="guanliFengxian" placeholder="请输入管理风险" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">经济风险<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input id="jingjiFengxian" name="jingjiFengxian" placeholder="请输入经济风险" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+        </div>
+    </div>
+
+<!--    <div class="layui-form-item">-->
+<!--        <label class="layui-form-label">评价<span style="color: red;">*</span></label>-->
+<!--        <div class="layui-input-block">-->
+<!--            <input id="pingjia" name="pingjia" placeholder="评价" type="text" class="layui-textarea" lay-verify="required" required autocomplete="off"/>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+    </div>
+
+
+</form>
+@}

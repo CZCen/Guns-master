@@ -26,7 +26,9 @@ public interface MgrService {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Mgr> queryAllByLimit(int offset, int limit);
+    List<Mgr> queryAllByLimit(int offset, int limit,String condition,String typeName);
+
+    int queryTotal();
 
     /**
      * 新增数据
