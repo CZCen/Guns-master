@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -40,8 +41,13 @@ public class AuditBottom extends Model<AuditBottom> implements Serializable {
     @TableField("audit_people")
     private Long auditPeople;
     @TableField("audit_date")
+//    @JsonDeserialize(using = CustomJsonDateDeserializer.class)
 //    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+//    @JsonFormat(pattern = "yyyy" )
+//    @JSONField(format = "yyyy")
 //    @JSONField(format = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date auditDate;
     @TableField("type_name")
     private String typeName;
@@ -87,8 +93,7 @@ public class AuditBottom extends Model<AuditBottom> implements Serializable {
     public Date getAuditDate() {
         return auditDate;
     }
-
-    public void setAuditDate(Date auditDate) {
+     public void setAuditDate(Date auditDate) {
         this.auditDate = auditDate;
     }
 

@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,12 +39,14 @@ public class AuditDangerController extends BaseController {
     AuditDangerDao auditDangerDao;
 
     @RequestMapping("")
-    public String api1() {
+    public String api1(String typeName, Model model) {
+        model.addAttribute("typeName", typeName);
         return PREFIX + "auditDanger" + KommonUtil.HTML_SUFFIX;
     }
 
     @RequestMapping("/add")
-    public String add() {
+    public String add(String typeName, Model model) {
+        model.addAttribute("typeName", typeName);
         return PREFIX + "auditDangerEdit" + KommonUtil.HTML_SUFFIX;
     }
 
@@ -73,17 +76,17 @@ public class AuditDangerController extends BaseController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public LayuiPageInfo list(long page, long limit, String condition) {
+    public LayuiPageInfo list(long page, long limit, String condition,String typeName) {
         try {
             IPage<AuditDanger> auditDangerIPage;
             if (StringUtils.isEmpty(condition)) {
                 auditDangerIPage = auditDangerDao
                         .selectPage(new Page<>(page, limit)
-                                , new QueryWrapper<>(AuditDanger.builder().build()));
+                                , new QueryWrapper<>(AuditDanger.builder().typeName(typeName).build()));
             } else {
                 auditDangerIPage = auditDangerDao
                         .selectPage(new Page<>(page, limit),
-                                new QueryWrapper<AuditDanger>()
+                                new QueryWrapper<AuditDanger>(AuditDanger.builder().typeName(typeName).build())
                                         .like("danger_point", condition).select());
             }
             return LayuiPageFactory.createPageInfo(auditDangerIPage);

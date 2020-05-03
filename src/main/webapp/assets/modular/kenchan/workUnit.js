@@ -58,11 +58,11 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Dict.openAddDict = function (data) {
         admin.putTempData('formOk', false);
         var title = '单位信息录入';
-        var lianjie = '/workUnit/add';
+        var lianjie = '/workUnit/add?typeName='+typeName;
         if (data !== undefined) {
             if (data.id) {
                 title = '单位信息修改';
-                lianjie = '/workUnit/add?id=' + data.id
+                lianjie = '/workUnit/add?id=' + data.id+"&typeName="+typeName
             }
         }
 
@@ -101,22 +101,11 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     // 渲染表格
     var tableResult = table.render({
         elem: '#' + Dict.tableId,
-        url: Feng.ctxPath + '/workUnit/list',
+        url: Feng.ctxPath + '/workUnit/list?typeName='+typeName,
         page: true,
         height: "full-158",
         cellMinWidth: 100,
-        cols: Dict.initColumn(),
-        done:function (res, curr, count) {
-            //如果是异步请求数据方式，res即为你接口返回的信息。
-            //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-            console.log(res);
-
-            //得到当前页码
-            console.log(curr);
-
-            //得到数据总量
-            console.log(count);
-        }
+        cols: Dict.initColumn()
     });
 
     // 搜索按钮点击事件

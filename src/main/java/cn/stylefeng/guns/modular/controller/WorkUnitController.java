@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,12 +39,14 @@ public class WorkUnitController extends BaseController {
     WorkUnitDao workUnitDao;
 
     @RequestMapping("")
-    public String api1() {
+    public String api1(String typeName, Model model) {
+        model.addAttribute("typeName", typeName);
         return PREFIX + "workUnit" + KommonUtil.HTML_SUFFIX;
     }
 
     @RequestMapping("/add")
-    public String add() {
+    public String add(String typeName, Model model) {
+        model.addAttribute("typeName", typeName);
         return PREFIX + "workUnitEdit" + KommonUtil.HTML_SUFFIX;
     }
 
@@ -73,16 +76,17 @@ public class WorkUnitController extends BaseController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public LayuiPageInfo list(long page, long limit, String condition) {
+    public LayuiPageInfo list(long page, long limit, String condition,String typeName) {
         try {
             IPage<WorkUnit> workUnitIPage;
             if (StringUtils.isEmpty(condition)) {
                 workUnitIPage = workUnitDao
-                        .selectPage(new Page<>(page, limit), null);
+                        .selectPage(new Page<>(page, limit)
+                                , new QueryWrapper<>(WorkUnit.builder().typeName(typeName).build()));
             } else {
                 workUnitIPage = workUnitDao
                         .selectPage(new Page<>(page, limit),
-                                new QueryWrapper<WorkUnit>()
+                                new QueryWrapper<>(WorkUnit.builder().typeName(typeName).build())
                                         .like("unit_name", condition).select());
             }
             return LayuiPageFactory.createPageInfo(workUnitIPage);

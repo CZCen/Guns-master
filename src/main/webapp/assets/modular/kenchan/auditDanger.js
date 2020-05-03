@@ -65,11 +65,11 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Dict.openAddDict = function (data) {
         admin.putTempData('formOk', false);
         var title = '危险点信息录入';
-        var lianjie = '/auditDanger/add';
+        var lianjie = '/auditDanger/add?typeName='+typeName;
         if (data !== undefined) {
             if (data.id) {
                 title = '危险点信息修改';
-                lianjie = '/auditDanger/add?id=' + data.id
+                lianjie = '/auditDanger/add?id=' + data.id+"&typeName="+typeName
             }
         }
 
@@ -108,7 +108,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     // 渲染表格
     var tableResult = table.render({
         elem: '#' + Dict.tableId,
-        url: Feng.ctxPath + '/auditDanger/list',
+        url: Feng.ctxPath + '/auditDanger/list?typeName='+typeName,
         page: true,
         height: "full-158",
         cellMinWidth: 100,

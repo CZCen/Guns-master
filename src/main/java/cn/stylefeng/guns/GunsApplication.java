@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfiguration;
 
 /**
  * SpringBoot方式启动类
@@ -27,7 +28,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author stylefeng
  * @Date 2017/5/21 12:06
  */
-@SpringBootApplication(exclude = {WebAutoConfiguration.class})
+@SpringBootApplication(exclude = {WebAutoConfiguration.class,FreeMarkerAutoConfiguration.class })
 public class GunsApplication {
 
     private final static Logger logger = LoggerFactory.getLogger(GunsApplication.class);

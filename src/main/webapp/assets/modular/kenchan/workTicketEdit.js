@@ -11,6 +11,7 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
 
     // 表单提交事件
     form.on('submit(btnSubmit)', function (data) {
+        add_flag = data.field.id === '';
         var ajax = new $ax(Feng.ctxPath + "/workTicket/save", function (resp) {
 
             if (data.field.id === '') {
@@ -27,6 +28,9 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
         }, function (data) {
             Feng.error("添加失败！" + data.responseJSON.message)
         });
+        if (add_flag) {
+            data.field.typeName=typeName
+        }
         ajax.set(data.field);
         ajax.start();
     });

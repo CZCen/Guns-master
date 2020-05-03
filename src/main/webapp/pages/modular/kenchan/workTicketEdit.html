@@ -13,28 +13,31 @@
     <div class="layui-form-item">
         <label class="layui-form-label">施工地点<span style="color: red;">*</span></label>
         <div class="layui-input-block">
-            <input id="workPlace" name="workPlace" placeholder="请输入施工地点" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+            <input id="workPlace" name="workPlace" placeholder="请输入施工地点" type="text" class="layui-input"
+                   lay-verify="required" required autocomplete="off"/>
         </div>
     </div>
 
-<!--    <div class="layui-form-item">-->
-<!--        <label class="layui-form-label">时间<span style="color: red;">*</span></label>-->
-<!--        <div class="layui-input-block">-->
-<!--            <input id="workTime" name="workTime" placeholder="请输入时间" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>-->
-<!--        </div>-->
-<!--    </div>-->
+    <!--    <div class="layui-form-item">-->
+    <!--        <label class="layui-form-label">时间<span style="color: red;">*</span></label>-->
+    <!--        <div class="layui-input-block">-->
+    <!--            <input id="workTime" name="workTime" placeholder="请输入时间" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>-->
+    <!--        </div>-->
+    <!--    </div>-->
 
     <div class="layui-form-item">
         <label class="layui-form-label">工作内容</label>
         <div class="layui-input-block">
-            <input id="workContent" name="workContent" placeholder="请输入工作内容" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+            <input id="workContent" name="workContent" placeholder="请输入工作内容" type="text" class="layui-input"
+                   lay-verify="required" required autocomplete="off"/>
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">设备</label>
         <div class="layui-input-block">
-            <input id="equipment" name="equipment" placeholder="请输入设备" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+            <input id="equipment" name="equipment" placeholder="请输入设备" type="text" class="layui-input"
+                   lay-verify="required" required autocomplete="off"/>
         </div>
     </div>
 
@@ -49,7 +52,9 @@
         <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
         <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
     </div>
-
-
 </form>
+
+<script>
+    var typeName = "${typeName}"
+</script>
 @}
