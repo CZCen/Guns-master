@@ -12,6 +12,7 @@
         <result property="principal" column="principal" jdbcType="INTEGER"/>
         <result property="typeName" column="type_name" jdbcType="VARCHAR"/>
         <result property="mgrId" column="mgr_id" jdbcType="INTEGER"/>
+        <result property="principalName" column="principalName" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
@@ -23,10 +24,14 @@
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="WorkUnitMap">
+    <select id="queryAllByLimit"  resultMap="WorkUnitMap">
         select
-          id, unit_name, zi_zhi, mobile, create_time, create_user, principal, type_name, mgr_id
-        from lbs.work_unit
+          a.*,b.name principalName
+        from lbs.work_unit a left join work_people b on a.principal = b.id
+        where a.type_name = #{typeName}
+        <if test="condition != null and condition != ''">
+            and a.unit_name like  CONCAT('%',#{condition},'%')
+        </if>
         limit #{offset}, #{limit}
     </select>
 

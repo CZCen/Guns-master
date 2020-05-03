@@ -1,4 +1,4 @@
-var dt ={};
+var dt = {};
 layui.use(['layer', 'form', 'admin', 'ax'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
@@ -16,7 +16,7 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
 
             if (data.field.id === '') {
                 Feng.success("添加成功！");
-            }else {
+            } else {
                 Feng.success("修改成功！");
             }
 
@@ -29,17 +29,29 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
             Feng.error("添加失败！" + data.responseJSON.message)
         });
         if (add_flag) {
-            data.field.typeName=typeName
+            data.field.typeName = typeName
         }
-        ajax.set(data.field);
-        ajax.start();
+        var ajax1 = new $ax(Feng.ctxPath + "/workUnit/getOneByName", function (resp) {
+            if (resp === '' || resp == null) {
+                Feng.error("人员不存在！");
+            } else {
+                data.field.principal = resp;
+                ajax.set(data.field);
+                ajax.start();
+            }
+        }, function (data) {
+            Feng.error("添加失败！" + data.responseJSON.message)
+        });
+        ajax1.set(data.field);
+        ajax1.start();
     });
 
 
     var id = Feng.getUrlParam("id");
-    if(id){
+    if (id) {
         var ajax_ = new $ax(Feng.ctxPath + "/workUnit/getOne?id=" + id);
         var result = ajax_.start();
+        result.data.principalName = parent.edit_data.principalName;
         form.val('myForm', result.data);
         layui.form.render("select");
     }

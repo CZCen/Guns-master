@@ -52,6 +52,8 @@ public class WorkUnit extends Model<WorkUnit> implements Serializable {
     * 负责人
     */
     private Long principal;
+    @TableField(exist = false)
+    private  String principalName;
     /**
     * 1:工作牌 2：操作票
     */
@@ -145,5 +147,13 @@ public class WorkUnit extends Model<WorkUnit> implements Serializable {
 
     public void setUnitType(String unitType) {
         this.unitType = unitType;
+    }
+
+    public String getPrincipalName() {
+        return principalName;
+    }
+
+    public void setPrincipalName(String principalName) {
+        this.principalName = principalName;
     }
 }

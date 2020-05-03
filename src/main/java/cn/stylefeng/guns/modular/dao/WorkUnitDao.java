@@ -13,6 +13,7 @@ import java.util.List;
  */
 public interface WorkUnitDao extends BaseMapper<WorkUnit> {
 
+
     /**
      * 通过ID查询单条数据
      *
@@ -28,7 +29,7 @@ public interface WorkUnitDao extends BaseMapper<WorkUnit> {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<WorkUnit> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<WorkUnit> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit,@Param("typeName") String typeName,@Param("condition")String condition) ;
 
 
     /**

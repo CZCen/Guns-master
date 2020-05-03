@@ -40,7 +40,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
             {field: 'unitName', sort: true, title: '单位名称'},
             {field: 'ziZhi', sort: true, title: '资质'},
             {field: 'mobile', sort: true, title: '联系电话'},
-            {field: 'principal', sort: true, title: '负责人'},
+            {field: 'principalName', sort: true, title: '负责人'},
             {field: 'unitType', sort: true, title: '单位类型'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 200}
         ]];

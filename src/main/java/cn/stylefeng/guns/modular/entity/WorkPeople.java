@@ -3,10 +3,11 @@ package cn.stylefeng.guns.modular.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (WorkPeople)实体类
@@ -17,7 +18,7 @@ import java.io.Serializable;
 
 @Data
 @TableName("work_people")
-public class WorkPeople implements Serializable {
+public class WorkPeople extends Model<WorkPeople> implements Serializable {
     private static final long serialVersionUID = 761650861468374088L;
 
     @TableId(value = "ID", type = IdType.ID_WORKER)

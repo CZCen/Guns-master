@@ -4,6 +4,7 @@ import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
 import cn.stylefeng.guns.core.common.page.LayuiPageInfo;
 import cn.stylefeng.guns.core.util.KommonUtil;
 import cn.stylefeng.guns.modular.dao.WorkUnitDao;
+import cn.stylefeng.guns.modular.entity.WorkPeople;
 import cn.stylefeng.guns.modular.entity.WorkUnit;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
@@ -14,12 +15,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (WorkUnit)表控制层
@@ -30,7 +31,7 @@ import javax.annotation.Resource;
 @Controller
 @RequestMapping("workUnit")
 @Slf4j
-public class WorkUnitController extends BaseController { 
+public class WorkUnitController extends BaseController {
 
     private static final String PREFIX = "modular/kenchan/";
     private static final ErrorResponseData ERROR_TIP = ResponseData.error("请检查输入是否合法");
@@ -76,19 +77,23 @@ public class WorkUnitController extends BaseController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public LayuiPageInfo list(long page, long limit, String condition,String typeName) {
+    public LayuiPageInfo list(long page, long limit, String condition, String typeName) {
+
         try {
             IPage<WorkUnit> workUnitIPage;
-            if (StringUtils.isEmpty(condition)) {
-                workUnitIPage = workUnitDao
+            List<WorkUnit> workUnits = workUnitDao.queryAllByLimit(((int) page - 1) * (int) limit, (int) limit, typeName, condition);
+            workUnitIPage = new Page<>(page, limit, workUnitDao.selectCount(null));
+            workUnitIPage.setRecords(workUnits);
+            /*if (StringUtils.isEmpty(condition)) {
+             *//* workUnitIPage = workUnitDao
                         .selectPage(new Page<>(page, limit)
-                                , new QueryWrapper<>(WorkUnit.builder().typeName(typeName).build()));
+                                , new QueryWrapper<>(WorkUnit.builder().typeName(typeName).build()));*//*
             } else {
                 workUnitIPage = workUnitDao
                         .selectPage(new Page<>(page, limit),
                                 new QueryWrapper<>(WorkUnit.builder().typeName(typeName).build())
                                         .like("unit_name", condition).select());
-            }
+            }*/
             return LayuiPageFactory.createPageInfo(workUnitIPage);
 
         } catch (Exception e) {
@@ -110,6 +115,15 @@ public class WorkUnitController extends BaseController {
             return ERROR_TIP;
         }
         return ResponseData.success(workUnit);
+    }
+
+    @RequestMapping("/getOneByName")
+    @ResponseBody
+    public Object getUserInfo(WorkUnit workUnit) {
+        WorkPeople workPeople = new WorkPeople();
+        workPeople.setName(workUnit.getPrincipalName());
+        WorkPeople people = workPeople.selectOne(new QueryWrapper<>(workPeople));
+        return people == null ? "" : String.valueOf(people.getId());
     }
 
 }

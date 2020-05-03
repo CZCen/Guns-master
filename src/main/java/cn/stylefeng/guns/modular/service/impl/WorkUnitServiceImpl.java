@@ -39,7 +39,8 @@ public class WorkUnitServiceImpl implements WorkUnitService {
      */
     @Override
     public List<WorkUnit> queryAllByLimit(int offset, int limit) {
-        return this.workUnitDao.queryAllByLimit(offset, limit);
+//        return this.workUnitDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
