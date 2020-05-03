@@ -52,6 +52,11 @@ public class WorkTicketController extends BaseController {
         return PREFIX + "workTicketEdit" + KommonUtil.HTML_SUFFIX;
     }
 
+    @RequestMapping("comment")
+    public String comment() {
+        return PREFIX + "workTicketComment" + KommonUtil.HTML_SUFFIX;
+    }
+
     @RequestMapping("/save")
     @ResponseBody
     public ResponseData add(WorkTicket workTicket) {

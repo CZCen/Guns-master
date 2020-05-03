@@ -49,7 +49,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
                 }
             },
             {field: 'auditAdd', sort: true, title: '审核补充'},
-            // {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 200}
+            {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 200}
         ]];
     };
 

@@ -1,4 +1,4 @@
-edit_flag=0;
+edit_flag = 0;
 layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     var $ = layui.$;
     var layer = layui.layer;
@@ -32,6 +32,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
             {field: 'workContent', sort: true, title: '工作内容'},
             {field: 'equipment', sort: true, title: '设备'},
             {field: 'material', sort: true, title: '材料配备'},
+            {field: 'pingJia', sort: true, title: '评价'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 200}
         ]];
     };
@@ -48,11 +49,11 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Dict.openAddDict = function (data) {
         admin.putTempData('formOk', false);
         var title = '工作票信息录入';
-        var lianjie = '/workTicket/add?typeName='+typeName;
+        var lianjie = '/workTicket/add?typeName=' + typeName;
         if (data !== undefined) {
             if (data.id) {
                 title = '工作票信息修改';
-                lianjie = '/workTicket/add?id=' + data.id+"&typeName="+typeName
+                lianjie = '/workTicket/add?id=' + data.id + "&typeName=" + typeName
             }
         }
 
@@ -91,9 +92,9 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     // 渲染表格
     var tableResult = table.render({
         elem: '#' + Dict.tableId,
-        url: Feng.ctxPath + '/workTicket/list?typeName='+typeName,
+        url: Feng.ctxPath + '/workTicket/list?typeName=' + typeName,
         page: true,
-        height: "full-158", 
+        height: "full-158",
         cellMinWidth: 100,
         cols: Dict.initColumn()
     });
@@ -108,6 +109,26 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
         Dict.openAddDict('add');
     });
 
+    Dict.audit = function (data) {
+        admin.putTempData('formOk', false);
+        var title = '评价';
+        var lianjie = '/workTicket/comment';
+        if(data != undefined){
+            if(data.id){
+                title = '评价修改';
+                lianjie = '/workTicket/comment?id=' + data.id
+            }
+        }
+        top.layui.admin.open({
+            type: 2,
+            title: title,
+            content: Feng.ctxPath +lianjie ,
+            end: function () {
+                admin.getTempData('formOk') && table.reload(Dict.tableId);
+            }
+        });
+    };
+
 
     // 工具条点击事件
     table.on('tool(' + Dict.tableId + ')', function (obj) {
@@ -118,6 +139,8 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
             Dict.openAddDict(data);
         } else if (layEvent === 'delete') {
             Dict.onDeleteRole(data);
+        } else if (layEvent === 'comment') {
+            Dict.audit(data)
         }
     });
 });
