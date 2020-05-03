@@ -27,8 +27,10 @@ public interface MgrDao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Mgr> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Mgr> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit,
+                                   @Param("condition") String condition, @Param("typeName")  String typeName);
 
+    int queryTotal();
 
     /**
      * 通过实体作为筛选条件查询

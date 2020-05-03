@@ -4,25 +4,24 @@
 
     <resultMap type="cn.stylefeng.guns.modular.entity.Mgr" id="MgrMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="mgrNo" column="mgr_no" jdbcType="VARCHAR"/>
+        <result property="mgrName" column="mgr_name" jdbcType="VARCHAR"/>
+        <result property="xingweiFengxian" column="xingwei_fengxian" jdbcType="INTEGER"/>
         <result property="rencaiFengxian" column="rencai_fengxian" jdbcType="INTEGER"/>
         <result property="xingweiFengxian" column="xingwei_fengxian" jdbcType="INTEGER"/>
         <result property="guanliFengxian" column="guanli_fengxian" jdbcType="INTEGER"/>
         <result property="jishuFengxian" column="jishu_fengxian" jdbcType="INTEGER"/>
         <result property="jingjiFengxian" column="jingji_fengxian" jdbcType="INTEGER"/>
-        <result property="rencaiPingjia" column="rencai_pingjia" jdbcType="VARCHAR"/>
-        <result property="xingweiPingjia" column="xingwei_pingjia" jdbcType="VARCHAR"/>
-        <result property="guanliPingjia" column="guanli_pingjia" jdbcType="VARCHAR"/>
-        <result property="jishuPingjia" column="jishu_pingjia" jdbcType="VARCHAR"/>
-        <result property="jingjiPingjia" column="jingji_pingjia" jdbcType="VARCHAR"/>
-        <result property="createUser" column="create_user" jdbcType="INTEGER"/>
+        <result property="pingjia" column="pingjia" jdbcType="VARCHAR"/>
         <result property="pingjiaRen" column="pingjia_ren" jdbcType="INTEGER"/>
         <result property="fengxianRen" column="fengxian_ren" jdbcType="INTEGER"/>
+        <result property="createUser" column="create_user" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="MgrMap">
         select
-          id, rencai_fengxian, xingwei_fengxian, guanli_fengxian, jishu_fengxian, jingji_fengxian, rencai_pingjia, xingwei_pingjia, guanli_pingjia, jishu_pingjia, jingji_pingjia, create_user, pingjia_ren, fengxian_ren
+          id, mgr_no,mgr_name,rencai_fengxian, xingwei_fengxian, guanli_fengxian, jishu_fengxian, jingji_fengxian, pingjia, create_user, pingjia_ren, fengxian_ren
         from lbs.mgr
         where id = #{id}
     </select>
@@ -30,15 +29,24 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="MgrMap">
         select
-          id, rencai_fengxian, xingwei_fengxian, guanli_fengxian, jishu_fengxian, jingji_fengxian, rencai_pingjia, xingwei_pingjia, guanli_pingjia, jishu_pingjia, jingji_pingjia, create_user, pingjia_ren, fengxian_ren
+          id, mgr_no,mgr_name,rencai_fengxian, xingwei_fengxian, guanli_fengxian, jishu_fengxian, jingji_fengxian,pingjia, create_user, pingjia_ren, fengxian_ren
         from lbs.mgr
+        WHERE
+        1 = 1
+        <if test="condition != null and condition != ''">
+            AND  mgr_name like CONCAT('%',#{condition},'%')
+        </if>
         limit #{offset}, #{limit}
+    </select>
+
+    <select id="queryTotal" resultType="int">
+        select count(1) from lbs.mgr
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="MgrMap">
         select
-          id, rencai_fengxian, xingwei_fengxian, guanli_fengxian, jishu_fengxian, jingji_fengxian, rencai_pingjia, xingwei_pingjia, guanli_pingjia, jishu_pingjia, jingji_pingjia, create_user, pingjia_ren, fengxian_ren
+          id, mgr_no,mgr_name,rencai_fengxian, xingwei_fengxian, guanli_fengxian, jishu_fengxian, jingji_fengxian,pingjia, create_user, pingjia_ren, fengxian_ren
         from lbs.mgr
         <where>
             <if test="id != null">
@@ -59,20 +67,8 @@
             <if test="jingjiFengxian != null">
                 and jingji_fengxian = #{jingjiFengxian}
             </if>
-            <if test="rencaiPingjia != null and rencaiPingjia != ''">
-                and rencai_pingjia = #{rencaiPingjia}
-            </if>
-            <if test="xingweiPingjia != null and xingweiPingjia != ''">
-                and xingwei_pingjia = #{xingweiPingjia}
-            </if>
-            <if test="guanliPingjia != null and guanliPingjia != ''">
-                and guanli_pingjia = #{guanliPingjia}
-            </if>
-            <if test="jishuPingjia != null and jishuPingjia != ''">
-                and jishu_pingjia = #{jishuPingjia}
-            </if>
-            <if test="jingjiPingjia != null and jingjiPingjia != ''">
-                and jingji_pingjia = #{jingjiPingjia}
+            <if test="pingjia != null and pingjia != ''">
+                and pingjia = #{pingjia}
             </if>
             <if test="createUser != null">
                 and create_user = #{createUser}
@@ -88,14 +84,20 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into lbs.mgr(rencai_fengxian, xingwei_fengxian, guanli_fengxian, jishu_fengxian, jingji_fengxian, rencai_pingjia, xingwei_pingjia, guanli_pingjia, jishu_pingjia, jingji_pingjia, create_user, pingjia_ren, fengxian_ren)
-        values (#{rencaiFengxian}, #{xingweiFengxian}, #{guanliFengxian}, #{jishuFengxian}, #{jingjiFengxian}, #{rencaiPingjia}, #{xingweiPingjia}, #{guanliPingjia}, #{jishuPingjia}, #{jingjiPingjia}, #{createUser}, #{pingjiaRen}, #{fengxianRen})
+        insert into lbs.mgr(mgr_no , mgr_name,rencai_fengxian, xingwei_fengxian, guanli_fengxian, jishu_fengxian, jingji_fengxian, pingjia, create_user, pingjia_ren, fengxian_ren)
+        values (#{mgrNo},#{mgrName},#{rencaiFengxian}, #{xingweiFengxian}, #{guanliFengxian}, #{jishuFengxian}, #{jingjiFengxian}, #{pingjia}, #{createUser}, #{pingjiaRen}, #{fengxianRen})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update lbs.mgr
         <set>
+            <if test="mgrNo != null">
+                mgr_no = #{mgrNo},
+            </if>
+            <if test="mgrName != null">
+                mgr_name = #{mgrName},
+            </if>
             <if test="rencaiFengxian != null">
                 rencai_fengxian = #{rencaiFengxian},
             </if>
@@ -111,20 +113,8 @@
             <if test="jingjiFengxian != null">
                 jingji_fengxian = #{jingjiFengxian},
             </if>
-            <if test="rencaiPingjia != null and rencaiPingjia != ''">
-                rencai_pingjia = #{rencaiPingjia},
-            </if>
-            <if test="xingweiPingjia != null and xingweiPingjia != ''">
-                xingwei_pingjia = #{xingweiPingjia},
-            </if>
-            <if test="guanliPingjia != null and guanliPingjia != ''">
-                guanli_pingjia = #{guanliPingjia},
-            </if>
-            <if test="jishuPingjia != null and jishuPingjia != ''">
-                jishu_pingjia = #{jishuPingjia},
-            </if>
-            <if test="jingjiPingjia != null and jingjiPingjia != ''">
-                jingji_pingjia = #{jingjiPingjia},
+            <if test="pingjia != null and pingjia != ''">
+                pingjia = #{pingjia},
             </if>
             <if test="createUser != null">
                 create_user = #{createUser},
