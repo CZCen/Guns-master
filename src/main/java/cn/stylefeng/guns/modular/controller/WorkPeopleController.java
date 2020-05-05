@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,7 +46,7 @@ public class WorkPeopleController  extends BaseController {
 
     @RequestMapping("/add")
     public String add() {
-        return PREFIX + "work_people_edit.html";
+        return PREFIX + "work_people_add_item.html";
     }
 
     @RequestMapping("/save")
@@ -96,6 +97,14 @@ public class WorkPeopleController  extends BaseController {
         WorkPeople workPeople = this.workPeopleService.getById(id);
         Map<String, Object> hashMap = BeanUtil.beanToMap(workPeople);
         return ResponseData.success(hashMap);
+    }
+
+
+    @RequestMapping("/getCombo")
+    @ResponseBody
+    public ResponseData getCombo() {
+        List<Map<String,Object>> list = this.workPeopleService.getCombo();
+        return new ResponseData(true,200,"sucess",list);
     }
 
 

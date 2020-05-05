@@ -25,4 +25,9 @@
         order by id DESC
     </select>
 
+
+    <select id="getCombo" resultType="map">
+        select mgr_name as text,id as value from mgr
+    </select>
+
 </mapper>
