@@ -17,4 +17,5 @@ public interface WorkPeopleMapper extends BaseMapper<WorkPeople> {
 
     Page<Map<String, Object>> selectWorkPeople(@Param("page") Page page, @Param("condition") String conditiion,@Param("typeName") String typeName);
 
+    List<Map<String, Object>> getCombo();
 }

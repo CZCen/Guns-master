@@ -30,6 +30,10 @@ public class WorkPeopleService extends ServiceImpl<WorkPeopleMapper, WorkPeople>
         return this.baseMapper.selectWorkPeople(page,conditiion,typeName);
     }
 
+    public List<Map<String,Object>> getCombo(){
+        return this.baseMapper.getCombo();
+    }
+
     @Transactional
     public int delete(Long id) {
         QueryWrapper<WorkPeople> dictEntityWrapper = new QueryWrapper<>();
