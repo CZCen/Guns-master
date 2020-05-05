@@ -56,4 +56,22 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
         form.val('myForm', result.data);
         layui.form.render("select");
     }
+
+
+    var getCombo = function (data) {
+        var ajax = new $ax(Feng.ctxPath + " /workPeople/getCombo", function (data) {
+            var list = data.data;
+            var text = "<option value=''>请选择项目</option>"
+            for (var i = 0; i < list.length ; i++) {
+                text += " <option value='"+list[i].value+"'>"+list[i].text+"</option>"
+            }
+            $("#combo").append(text)
+            layui.form.render("select");
+        }, function (data) {
+            Feng.error("getCombo失败!" + data.responseJSON.message + "!");
+        });
+        ajax.start();
+    };
+    getCombo();
 });
+

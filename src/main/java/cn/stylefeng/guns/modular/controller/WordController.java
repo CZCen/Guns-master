@@ -1,14 +1,17 @@
 package cn.stylefeng.guns.modular.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.hwpf.usermodel.Range;
+import org.apache.poi.poifs.filesystem.FileMagic;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +22,11 @@ import java.util.Map;
  * @date 2020/5/2
  */
 @RestController
+@Slf4j
 public class WordController {
 
     @RequestMapping("exportWord")
-    public void expWord(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void expWord(int type) throws Exception {
        /* Calendar calendar = Calendar.getInstance();// 取当前日期。
 //        String imagePath = WordUtil.class.getResource("/images").getPath()+"/image2.jpg";
 
@@ -39,16 +43,24 @@ public class WordController {
             e.printStackTrace();
         }*/
 
-        String tmpFile = "D:/x.doc";
-        String expFile = "D:/result.docx";
-        Map<String, String> datas = new HashMap<String, String>();
-        datas.put("title", "标题部份");
-        datas.put("name", "你的名字");
-        datas.put("content", "这里是内容，测试使用POI导出到Word的内容！");
-        datas.put("author", "知识林");
-        datas.put("url", "http://www.zslin.com");
+        File file;
 
-        build(new File(tmpFile), datas, expFile);
+        String tmpFile = "D:/x.doc";
+        String expFile;
+        if (type==0) {
+            file = ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX+"template/workTicket.doc");
+            file = new File("d:/workTicket.doc");
+                    expFile = "D:/工作票.doc";
+        }else {
+            file = ResourceUtils.getFile("classpath:template/操作票.doc");
+            expFile = "D:/操作票.doc";
+
+        }
+        Map<String, String> datas = new HashMap<>();
+        // query data
+        // put data
+
+        build(file, datas, expFile);
     }
     private void build(File tmpFile, Map<String, String> contentMap, String exportFile) throws Exception {
         String name = tmpFile.getName();
@@ -77,5 +89,28 @@ public class WordController {
         XWPFDocument document = new XWPFDocument();
         List<IBodyElement> bodyElements = document.getBodyElements();
 
+    }
+    private static String readDoc (String filePath, InputStream is) throws IOException {
+        String text= "";
+        is = FileMagic.prepareToCheckMagic(is);
+        try {
+            if (FileMagic.valueOf(is) == FileMagic.OLE2) {
+                WordExtractor ex = new WordExtractor(is);
+                text = ex.getText();
+                ex.close();
+            } else if(FileMagic.valueOf(is) == FileMagic.OOXML) {
+                XWPFDocument doc = new XWPFDocument(is);
+                XWPFWordExtractor extractor = new XWPFWordExtractor(doc);
+                text = extractor.getText();
+                extractor.close();
+            }
+        } catch (Exception e) {
+            log.error("for file " + filePath, e);
+        } finally {
+            if (is != null) {
+                is.close();
+            }
+        }
+        return text;
     }
 }

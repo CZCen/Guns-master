@@ -1,3 +1,4 @@
+var getcom;
 layui.use(['layer', 'form', 'admin', 'ax'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
@@ -22,6 +23,7 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
         });
         ajax.start();
     };
+    parent.getcom = getCombo;
     getCombo();
 
 
