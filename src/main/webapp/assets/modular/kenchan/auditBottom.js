@@ -159,7 +159,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
 
     Dict.audit = function (data) {
         var operation = function () {
-            var ajax = new $ax(Feng.ctxPath + "/auditBottom/save", function (resp) {
+            var ajax = new $ax(Feng.ctxPath + "/auditBottom/pass", function (resp) {
                 if (audit_flag==0) {
                     Feng.success("审核成功!");
                 }else {

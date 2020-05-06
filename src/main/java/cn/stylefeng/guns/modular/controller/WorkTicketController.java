@@ -4,6 +4,7 @@ import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
 import cn.stylefeng.guns.core.common.page.LayuiPageInfo;
 import cn.stylefeng.guns.core.util.KommonUtil;
 import cn.stylefeng.guns.modular.dao.WorkTicketDao;
+import cn.stylefeng.guns.modular.entity.WorkPeople;
 import cn.stylefeng.guns.modular.entity.WorkTicket;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * (WorkTicket)表控制层
@@ -71,6 +73,7 @@ public class WorkTicketController extends BaseController {
         }
     }
 
+
     @RequestMapping("/delete")
     @ResponseBody
     public ResponseData delete(@RequestParam Long id) {
@@ -118,6 +121,13 @@ public class WorkTicketController extends BaseController {
             return ERROR_TIP;
         }
         return ResponseData.success(workTicket);
+    }
+
+    @RequestMapping("/getPeople")
+    @ResponseBody
+    public ResponseData getCombo() {
+        List<WorkPeople> workPeople = new WorkPeople().selectAll();
+        return new ResponseData(true,200,"sucess",workPeople);
     }
 
 }

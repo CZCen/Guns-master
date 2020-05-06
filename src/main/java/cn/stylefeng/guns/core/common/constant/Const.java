@@ -30,12 +30,12 @@ public interface Const {
     /**
      * 默认管理系统的名称
      */
-    String DEFAULT_SYSTEM_NAME = "电子工程管控系统";
+    String DEFAULT_SYSTEM_NAME = "电力工程管控系统";
 
     /**
      * 默认欢迎界面的提示
      */
-    String DEFAULT_WELCOME_TIP = "欢迎使用电子工程管控系统!";
+    String DEFAULT_WELCOME_TIP = "欢迎使用电力工程管控系统!";
 
     /**
      * 系统默认的管理员密码

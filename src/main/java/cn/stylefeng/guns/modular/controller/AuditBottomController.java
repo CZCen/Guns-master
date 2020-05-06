@@ -2,6 +2,7 @@ package cn.stylefeng.guns.modular.controller;
 
 import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
 import cn.stylefeng.guns.core.common.page.LayuiPageInfo;
+import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.util.KommonUtil;
 import cn.stylefeng.guns.modular.dao.AuditBottomDao;
 import cn.stylefeng.guns.modular.entity.AuditBottom;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * (AuditBottom)表控制层
@@ -55,6 +58,21 @@ public class AuditBottomController extends BaseController {
     public ResponseData add( AuditBottom auditBottom) {
         try {
             auditBottom.insertOrUpdate();
+            return SUCCESS_TIP;
+        } catch (Exception e) {
+            log.error(null, e);
+            return ERROR_TIP;
+        }
+    }
+
+    @RequestMapping("/pass")
+    @ResponseBody
+    public ResponseData pass(AuditBottom workTicket) {
+        try {
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            workTicket.setAuditDate( new Date() );
+            workTicket.setAuditPeople(ShiroKit.getUser().getId());
+            workTicket.insertOrUpdate();
             return SUCCESS_TIP;
         } catch (Exception e) {
             log.error(null, e);
