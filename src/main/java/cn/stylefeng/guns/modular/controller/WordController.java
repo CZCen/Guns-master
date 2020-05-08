@@ -1,5 +1,9 @@
 package cn.stylefeng.guns.modular.controller;
 
+import cn.stylefeng.guns.modular.dao.Word1Dao;
+import cn.stylefeng.guns.modular.dao.WordDao;
+import cn.stylefeng.guns.modular.entity.Word;
+import cn.stylefeng.guns.modular.entity.Word1;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.extractor.WordExtractor;
@@ -12,6 +16,7 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +29,61 @@ import java.util.Map;
 @RestController
 @Slf4j
 public class WordController {
+    @Resource
+    WordDao wordao;
+
+    @Resource
+    Word1Dao word1Dao;
+
+    @RequestMapping("/word")
+    public String word(Long mgrId,String typeName) throws Exception {
+        File file = null;
+        String expFile;
+        if (typeName.equals("工作票")) {
+//            file = ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX+"template/工作票.doc");
+            file = new File("c:/工作票.doc");
+            expFile = "e:/工作票.doc";
+            Map<String, String> datas = new HashMap<>();
+            // query data
+            Word word = new Word();
+            word.setId(mgrId);
+//            word.setTypeName(typeName);
+//            List<Word> words = word.selectAll();
+            List<Word> words = wordao.queryAll(word);
+            // put data
+            Word word1 = words.get(0);
+            datas.put("workContent", word1.getWorkcontent());
+            datas.put("mgrNo", word1.getMgrno());
+            datas.put("workPlan", word1.getWorkplan() );
+            datas.put("mgrName", word1.getMgrname());
+            datas.put("countPeople", String.valueOf(word1.getCountpeople()));
+            build(file, datas , expFile);
+            return expFile;
+        }else {
+//            file = ResourceUtils.getFile("classpath:template/操作票.doc");
+            file = new File("c:/操作票.doc");
+            expFile = "e:/操作票.doc";
+            Map<String, String> datas = new HashMap<>();
+            // query data
+            Word1 word1 = new Word1();
+            word1.setId(mgrId);
+//            word1.setTypeName(typeName);
+//            List<Word1> word1s = word1.selectAll();
+            List<Word1> word1s = word1Dao.queryAll(word1);
+            // put data
+            Word1 word2 = word1s.get(0);
+            datas.put("workContent", word2.getWorkcontent());
+            datas.put("mgrNo", word2.getMgrno());
+            datas.put("workPlan", word2.getWorkplan() );
+            datas.put("mgrName", word2.getMgrname());
+            datas.put("countPeople", String.valueOf(word2.getCountpeople()));
+            build(file, datas, expFile);
+
+            return expFile;
+        }
+
+
+    }
 
     @RequestMapping("exportWord")
     public void expWord(int type) throws Exception {
