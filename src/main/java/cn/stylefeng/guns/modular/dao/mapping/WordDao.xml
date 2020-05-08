@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.dao.WordDao">
+
+    <resultMap type="cn.stylefeng.guns.modular.entity.Word" id="WordMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="workcontent" column="workContent" jdbcType="VARCHAR"/>
+        <result property="workplan" column="workPlan" jdbcType="VARCHAR"/>
+        <result property="mgrno" column="mgrNo" jdbcType="VARCHAR"/>
+        <result property="mgrname" column="mgrName" jdbcType="VARCHAR"/>
+        <result property="countpeople" column="countPeople" jdbcType="INTEGER"/>
+        <result property="typeName" column="type_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WordMap">
+        select
+          id, workContent, workPlan, mgrNo, mgrName, countPeople, type_name
+        from lbs.word
+        where  = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="WordMap">
+        select
+          id, workContent, workPlan, mgrNo, mgrName, countPeople, type_name
+        from lbs.word
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="WordMap">
+        select
+          id, workContent, workPlan, mgrNo, mgrName, countPeople, type_name
+        from lbs.word
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="workcontent != null and workcontent != ''">
+                and workContent = #{workcontent}
+            </if>
+            <if test="workplan != null and workplan != ''">
+                and workPlan = #{workplan}
+            </if>
+            <if test="mgrno != null and mgrno != ''">
+                and mgrNo = #{mgrno}
+            </if>
+            <if test="mgrname != null and mgrname != ''">
+                and mgrName = #{mgrname}
+            </if>
+            <if test="countpeople != null">
+                and countPeople = #{countpeople}
+            </if>
+            <if test="typeName != null and typeName != ''">
+                and type_name = #{typeName}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
