@@ -32,7 +32,6 @@ import org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfigura
  */
 @SpringBootApplication(exclude = {WebAutoConfiguration.class, FreeMarkerAutoConfiguration.class}
 )
-//,scanBasePackages = {"cn.stylefeng.guns"}
 @EnableHasor(scanPackages = {"cn.stylefeng.guns.modular.api"})      // 在Spring 中启用 Hasor
 @EnableHasorWeb()   // 将 hasor-web 配置到 Spring 环境中，Dataway 的 UI 是通过 hasor-web 提供服务。
 public class GunsApplication {

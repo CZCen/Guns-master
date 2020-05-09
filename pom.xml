@@ -206,6 +206,13 @@
             <artifactId>hasor-web</artifactId>
             <version>4.1.4</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.antlr/antlr4-runtime -->
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.8-1</version>
+        </dependency>
+
     </dependencies>
 
 
