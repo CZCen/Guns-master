@@ -16,6 +16,8 @@
 package cn.stylefeng.guns;
 
 import cn.stylefeng.roses.core.config.WebAutoConfiguration;
+import net.hasor.spring.boot.EnableHasor;
+import net.hasor.spring.boot.EnableHasorWeb;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -28,7 +30,11 @@ import org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfigura
  * @author stylefeng
  * @Date 2017/5/21 12:06
  */
-@SpringBootApplication(exclude = {WebAutoConfiguration.class,FreeMarkerAutoConfiguration.class })
+@SpringBootApplication(exclude = {WebAutoConfiguration.class, FreeMarkerAutoConfiguration.class}
+)
+//,scanBasePackages = {"cn.stylefeng.guns"}
+@EnableHasor(scanPackages = {"cn.stylefeng.guns.modular.api"})      // 在Spring 中启用 Hasor
+@EnableHasorWeb()   // 将 hasor-web 配置到 Spring 环境中，Dataway 的 UI 是通过 hasor-web 提供服务。
 public class GunsApplication {
 
     private final static Logger logger = LoggerFactory.getLogger(GunsApplication.class);
