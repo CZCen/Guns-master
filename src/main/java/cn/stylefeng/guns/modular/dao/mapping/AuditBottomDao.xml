@@ -7,7 +7,7 @@
         <result property="des" column="des" jdbcType="VARCHAR"/>
         <result property="auditStatus" column="audit_status" jdbcType="INTEGER"/>
         <result property="auditPeople" column="audit_people" jdbcType="INTEGER"/>
-        <result property="auditTime" column="audit_time" jdbcType="TIMESTAMP"/>
+        <result property="auditDate" column="audit_date" jdbcType="TIMESTAMP"/>
         <result property="typeName" column="type_name" jdbcType="VARCHAR"/>
         <result property="mgrId" column="mgr_id" jdbcType="INTEGER"/>
     </resultMap>
@@ -23,8 +23,12 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="AuditBottomMap">
         select
-          id, des, audit_status, audit_people, audit_date, type_name, mgr_id
-        from lbs.audit_bottom
+          a.*,b.name
+        from lbs.audit_bottom a left join sys_user b on a.audit_people = b.USER_ID
+        where a.type_name = #{typeName}
+        <if test="condition != null and condition != ''">
+            and a.des like  CONCAT('%',#{condition},'%')
+        </if>
         limit #{offset}, #{limit}
     </select>
 
@@ -46,8 +50,8 @@
             <if test="auditPeople != null">
                 and audit_people = #{auditPeople}
             </if>
-            <if test="auditTime != null">
-                and audit_time = #{auditTime}
+            <if test="auditDate != null">
+                and audit_date = #{auditDate}
             </if>
             <if test="typeName != null and typeName != ''">
                 and type_name = #{typeName}
@@ -61,7 +65,7 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into lbs.audit_bottom(des, audit_status, audit_people, audit_date, type_name, mgr_id)
-        values (#{des}, #{auditStatus}, #{auditPeople}, #{auditTime}, #{typeName}, #{mgrId})
+        values (#{des}, #{auditStatus}, #{auditPeople}, #{auditDate}, #{typeName}, #{mgrId})
     </insert>
 
     <!--通过主键修改数据-->
@@ -77,8 +81,8 @@
             <if test="auditPeople != null">
                 audit_people = #{auditPeople},
             </if>
-            <if test="auditTime != null">
-                audit_time = #{auditTime},
+            <if test="auditDate != null">
+                audit_date = #{auditDate},
             </if>
             <if test="typeName != null and typeName != ''">
                 type_name = #{typeName},

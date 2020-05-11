@@ -28,7 +28,7 @@ public interface AuditDangerDao extends BaseMapper<AuditDanger> {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<AuditDanger> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<AuditDanger> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit,@Param("typeName") String typeName,@Param("condition")String condition);
 
 
     /**

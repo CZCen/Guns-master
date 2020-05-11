@@ -28,7 +28,7 @@ public interface AuditBottomDao extends BaseMapper<AuditBottom> {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<AuditBottom> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<AuditBottom> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit,@Param("typeName") String typeName,@Param("condition")String condition);
 
 
     /**

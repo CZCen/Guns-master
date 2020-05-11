@@ -53,6 +53,9 @@ public class AuditDanger extends Model<AuditDanger> implements Serializable {
     @TableField("mgr_id")
     private Long mgrId;
 
+    @TableField(exist = false)
+    private String name;
+
 
     public Long getId() {
         return id;
@@ -110,4 +113,11 @@ public class AuditDanger extends Model<AuditDanger> implements Serializable {
         this.mgrId = mgrId;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

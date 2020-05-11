@@ -9,13 +9,11 @@ import cn.stylefeng.guns.modular.entity.AuditBottom;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * (AuditBottom)表控制层
@@ -97,7 +96,11 @@ public class AuditBottomController extends BaseController {
     public LayuiPageInfo list(long page, long limit, String condition,String typeName) {
         try {
             IPage<AuditBottom> auditBottomIPage;
-            if (StringUtils.isEmpty(condition)) {
+
+            final List<AuditBottom> auditDangers = auditBottomDao.queryAllByLimit(((int) page - 1) * (int) limit, (int) limit, typeName, condition);
+            auditBottomIPage = new Page<>(page, limit, auditBottomDao.selectCount(null));
+            auditBottomIPage.setRecords(auditDangers);
+            /*if (StringUtils.isEmpty(condition)) {
                 auditBottomIPage = auditBottomDao
                         .selectPage(new Page<>(page, limit)
                                 , new QueryWrapper<>(AuditBottom.builder().typeName(typeName).build()));
@@ -106,7 +109,7 @@ public class AuditBottomController extends BaseController {
                         .selectPage(new Page<>(page, limit),
                                 new QueryWrapper<AuditBottom>(AuditBottom.builder().typeName(typeName).build())
                                         .like("des", condition).select());
-            }
+            }*/
             return LayuiPageFactory.createPageInfo(auditBottomIPage);
 
         } catch (Exception e) {

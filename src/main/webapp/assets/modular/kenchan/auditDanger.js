@@ -35,7 +35,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
             {type: 'checkbox'},
             {field: 'id', hide: true, sort: true, title: 'id'},
             {field: 'dangerPoint', sort: true, title: '危险点'},
-            {field: 'auditPeople', sort: true, title: '审核人'},
+            {field: 'name', sort: true, title: '审核人'},
             {
                 field: 'auditStatus', sort: true, title: '审核状态',
                 templet: function (d) {

@@ -39,7 +39,8 @@ public class AuditBottomServiceImpl implements AuditBottomService {
      */
     @Override
     public List<AuditBottom> queryAllByLimit(int offset, int limit) {
-        return this.auditBottomDao.queryAllByLimit(offset, limit);
+//        return this.auditBottomDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**

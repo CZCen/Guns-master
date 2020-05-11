@@ -50,7 +50,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
                     }
                 }
             },
-            {field: 'auditPeople', sort: true, title: '审核人'},
+            {field: 'name', sort: true, title: '审核人'},
             {field: 'auditDate', sort: true, title: '审核时间',
                 templet: function (d) {
                     return d.auditDate.substring(0,10)

@@ -39,7 +39,8 @@ public class AuditDangerServiceImpl implements AuditDangerService {
      */
     @Override
     public List<AuditDanger> queryAllByLimit(int offset, int limit) {
-        return this.auditDangerDao.queryAllByLimit(offset, limit);
+//        return this.auditDangerDao.queryAllByLimit(offset, limit);
+        return null;
     }
 
     /**
