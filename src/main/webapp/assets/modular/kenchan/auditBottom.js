@@ -70,11 +70,11 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
 
     Dict.openAddDict = function (data) {
         admin.putTempData('formOk', false);
-        var title = '危险点信息录入';
+        var title = '交底会签录入';
         var lianjie = '/auditBottom/add?typeName='+typeName;
         if (data !== undefined) {
             if (data.id) {
-                title = '危险点信息修改';
+                title = '交底会签修改';
                 lianjie = '/auditBottom/add?id=' + data.id+"&typeName="+typeName
             }
         }
