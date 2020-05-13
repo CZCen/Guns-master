@@ -40,8 +40,8 @@ public class WordController {
         File file = null;
         String expFile;
         if (typeName.equals("工作票")) {
-//            file = ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX+"template/工作票.doc");
-            file = new File("c:/工作票.doc");
+            file = ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX+"template/工作票.doc");
+//            file = new File("c:/工作票.doc");
             expFile = "e:/工作票.doc";
             Map<String, String> datas = new HashMap<>();
             // query data
@@ -128,7 +128,6 @@ public class WordController {
         if (name.substring(dot).equalsIgnoreCase("docx")) {
 
         }
-
         FileInputStream tempFileInputStream = new FileInputStream(tmpFile);
         HWPFDocument document = new HWPFDocument(tempFileInputStream);
         // 读取文本内容
