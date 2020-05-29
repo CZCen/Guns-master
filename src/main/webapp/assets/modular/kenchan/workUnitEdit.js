@@ -72,7 +72,7 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
 
 
     var getPeople = function (data) {
-        var ajax = new $ax(Feng.ctxPath + " /workTicket/getPeople", function (data) {
+        var ajax = new $ax(Feng.ctxPath + "/workTicket/getPeople", function (data) {
             var list = data.data;
             var text = "<option value=''>请选择项目</option>"
             for (var i = 0; i < list.length ; i++) {
